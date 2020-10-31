@@ -1,3 +1,0 @@
---
---
-set schema Bank-Project;
