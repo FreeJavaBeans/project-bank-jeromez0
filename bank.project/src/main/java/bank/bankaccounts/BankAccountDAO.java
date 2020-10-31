@@ -1,4 +1,4 @@
-package bank.accounts;
+package bank.bankaccounts;
 
 public class BankAccountDAO {
 

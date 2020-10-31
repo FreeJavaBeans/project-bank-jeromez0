@@ -21,7 +21,8 @@ create table "UserAuth"
 (
 	"KeyID" serial primary key,	
 	"Username" varchar(25) not null,
-	"Password" varchar(25) not null
+	"Password" varchar(25) not null,
+	"Account Type" boolean not null,  -- If true, account type is customer. If false employee type is employee
 );
 
 create table "Employees"
