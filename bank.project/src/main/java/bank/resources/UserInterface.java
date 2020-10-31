@@ -1,4 +1,4 @@
-package bank.accounts;
+package bank.resources;
 
 public class UserInterface {
 
