@@ -25,7 +25,12 @@ public class ConnectionUtility {
 		String url = System.getenv("DB_URL");
 		try {
 			this.conn = DriverManager.getConnection(url, username, password);
+			if (this.conn != null && !conn.isClosed()) {
+				System.out.println("Connected to application");
+				System.out.println("URL: " + url);
+			}
 		}catch(SQLException e) {
+			e.printStackTrace();
 			System.out.println("Failed to Connect to DB");
 			System.out.println("Username: " + username);
 			System.out.println("Password: " + password);
