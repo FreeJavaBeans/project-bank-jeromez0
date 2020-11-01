@@ -6,9 +6,10 @@
    Author: Jerome Zhang
 ********************************************************************************/
 
---Create Tables
---==================
---create schema 'BankApplication';
+/**************
+** Create Tables
+***************/
+
 set schema 'BankApplication';
 
 drop table if exists "Employees";
@@ -59,5 +60,13 @@ create table "BankAccounts"
 	foreign key ("KeyID")
 		references "Customers" ("KeyID")
 );
+
+
+
+/**************
+** Populate Tables
+***************/
+
+
 
 

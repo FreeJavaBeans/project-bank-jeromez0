@@ -1,6 +1,6 @@
 package bank.resources;
 
-public class UserAuthentication {
+public class UserAuthenticationDAO {
 
 	String Username;
 	String Password;
