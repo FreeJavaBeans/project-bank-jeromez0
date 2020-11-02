@@ -27,19 +27,17 @@ public class UserAuthenticationDAO {
 		// tries the SQL query
 		try {
 			Statement statementObject = conn.createStatement();
-
+			
 			String authString = "select * " +
 								"from \"BankApplication\".UserAuth " +
 								"where \"Username\" = \'" + username + "\'";
 			
-			
 			String queryString = "select * "+ 
 								 "from \"BankApplication\".UserAuth " + 
 								 "where \"Username\" = \'Customer1\'";
-			
-			
-			System.out.println("\n User Input Query: " + authString);
-			System.out.println("Correct SQL Query: " + queryString + "\n");
+			System.out.println("\n****SQL Queries****");
+			System.out.println(" User Input Query: " + authString);
+			System.out.println("Working SQL Query: " + queryString + "\n");
 			
 			ResultSet results = statementObject.executeQuery(authString);		
 			//ResultSet results = statementObject.executeQuery(queryString);
@@ -52,14 +50,36 @@ public class UserAuthenticationDAO {
 				TestUser.setPassword(results.getString("Password"));
 				TestUser.setAccountType(results.getBoolean("AccountType"));
 			}
-			System.out.println("****Login successful**** " );
-			System.out.println(TestUser.showUser());
-			
+			// tests user-input username and password against database version 
+			if (this.UserAuthentication(TestUser, username, password) == true) {
+				System.out.println("****Login successful****\n" );
+				System.out.println(TestUser.showUser());
+				UserInterface UI = new UserInterface();
+				UI.LoginMenu();
+			}
+			else {
+				System.out.println("****Incorrect Username or Password, Login Failed****\n");
+				UserInterface UI = new UserInterface();
+				UI.LoginMenu();
+			}
+				
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL Exception e");
+		}	
+	}
+	
+	private boolean UserAuthentication(User TestUser, String username, String password) {
+		try {
+			if (TestUser.getUsername().equals(username) && TestUser.getPassword().equals(password)) { 
+				return true;
+			}
+			else {
+				return false;
+			}
+		}catch (NullPointerException e) {
+			return false;
 		}
-		
 	}
 	
 	// method for creating a new account
