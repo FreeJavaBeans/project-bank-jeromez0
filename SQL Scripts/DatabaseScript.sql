@@ -24,7 +24,10 @@ create table UserAuth
 	"Username" varchar(25) not null,
 	"Password" varchar(25) not null,
 	"AccountType" boolean not null  -- If true, account type is customer. If false employee type is employee
+	
 );
+
+create unique index Unique_Usernames on UserAuth("Username"); 
 
 create table Employees
 (
@@ -37,7 +40,7 @@ create table Employees
 	foreign key ("KeyID")
 		references UserAuth ("KeyID")
 );
-
+ 
 create table Customers
 (
 	"KeyID" serial primary key,	
@@ -50,6 +53,8 @@ create table Customers
 		references UserAuth ("KeyID")
 );
 
+create unique index Unique_Emails on Customers("Email");
+
 create table BankAccounts
 (
 	"KeyID" serial primary key,	
@@ -60,8 +65,6 @@ create table BankAccounts
 	foreign key ("KeyID")
 		references Customers ("KeyID")
 );
-
-
 
 /**************
 ** Populate Tables
@@ -92,10 +95,3 @@ insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DOB
 insert into UserAuth ("Username","Password", "AccountType") values ('Customer4', 'password', true);
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DOB") values (8, 'Janet', 'Mason', 'JanetMason@yahoo.com','104 Awesome Drive','02/17/1995');
 
--- testing
-select * from UserAuth;
-select * from Customers;
-
-select * from "BankApplication".userauth where "Username" = 'Customer1';
-
-select * from "BankApplication".userauth u  where "KeyID" = 1;

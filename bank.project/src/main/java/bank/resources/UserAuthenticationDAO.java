@@ -1,13 +1,12 @@
 package bank.resources;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import bank.resources.ConnectionUtility;
 import bank.users.User;
-import bank.UserInterface.*;
 
 public class UserAuthenticationDAO {
 	
@@ -15,7 +14,17 @@ public class UserAuthenticationDAO {
 	String Username;
 	String Password;
 	User CurrentUser;
+	String QueryLogin = "select * from \"BankApplication\".UserAuth where \"Username\" = ?;";
 	
+	String CreateUser = "insert into UserAuth (\"Username\", \"Password\", \"AccountType\") values (?,?,true);";
+	
+	String getKeyID = "select KeyID from \"BankApplication\".UserAuth where \"Username\" = ?;";
+	
+	String EnterCustomerDetails = "insert into Customers (\"KeyID\", \"FirstName\", \"LastName\", \"Email\", \"Address\",\"DOB\") "+
+								  "values (?,?,?,?,?,?)";
+	
+	
+	// public constructor method
 	public UserAuthenticationDAO(String username, String password) {
 		this.Username = username;
 		this.Password = password;
@@ -25,43 +34,31 @@ public class UserAuthenticationDAO {
 		// get a connection
 		Connection conn = cu.getConnection();
 		// authentication process starts
-		System.out.println("\n*****Authentication*****");		
-		System.out.println("Username: " + this.Username + "\nPassword: "+ this.Password);
+		System.out.println("\n*****Authenticating*****");
+		System.out.println("........................");
+		System.out.println("........................");
+		System.out.println("........................");
 		// tries the SQL query
 		try {
-			Statement statementObject = conn.createStatement();
-			
-			String authString = "select * " +
-								"from \"BankApplication\".UserAuth " +
-								"where \"Username\" = \'" + this.Username + "\'";
-			/* Blocked out code is for testing SQL
-			 *  Queries
-			 */
-			
-//			String queryString = "select * "+ 
-//								 "from \"BankApplication\".UserAuth " + 
-//								 "where \"Username\" = \'Customer1\'";
-//			System.out.println("\n****SQL Queries****");
-//			System.out.println(" User Input Query: " + authString);
-//			System.out.println("Working SQL Query: " + queryString + "\n");
-				
-			//ResultSet results = statementObject.executeQuery(queryString);
-			
+			Statement statementObject = conn.createStatement();					
+			PreparedStatement prepStatement = conn.prepareStatement(this.QueryLogin);
+			prepStatement.setString(1, this.Username);
+			// System.out.println("Prepared String: " + prepStatement);	printing out the SQL QUERY			
+			// Results are gathered after the Query is executed
+			ResultSet results = prepStatement.executeQuery();				
+			User TestUser = new User(); // The TestUser is a temporary object that stores the data for the queried username
 			// calling first() or next() will take us to the first row
-			
-			ResultSet results = statementObject.executeQuery(authString);	
-			User TestUser = new User();
 			while(results.next()) {			 
 				TestUser.setKeyID(results.getInt("KeyID"));
 				TestUser.setUsername(results.getString("Username"));
 				TestUser.setPassword(results.getString("Password"));
 				TestUser.setAccountType(results.getBoolean("AccountType"));
 			}
-			// tests user-input username and password against database version 
+			// tests user-input username and password against database username and password
 			if (this.UserAuthentication(TestUser, this.Username, this.Password) == true) {
 				this.CurrentUser = TestUser;
 				System.out.println("****Login successful****\n" );
-				System.out.println(CurrentUser.showUser());
+				// System.out.println(CurrentUser.showUser());
 				return true;
 			}
 			else {
@@ -74,6 +71,11 @@ public class UserAuthenticationDAO {
 			System.out.println("SQL Exception e");
 			return false;
 		}	
+	}
+	
+	// method for creating a new account
+	public void UserAuthNewAccount(String Username, String Password, boolean AccountType) {
+		
 	}
 	
 	private boolean UserAuthentication(User TestUser, String username, String password) {
@@ -112,10 +114,6 @@ public class UserAuthenticationDAO {
 	}
 	public void setCurrentUser(User currentUser) {
 		CurrentUser = currentUser;
-	}
-	// method for creating a new account
-	public UserAuthenticationDAO(String Username, String Password, boolean AccountType) {
-		
 	}
 	
 }

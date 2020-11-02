@@ -6,9 +6,11 @@ import java.util.Scanner;
 import bank.resources.UserAuthenticationDAO;
 
 public class UserInterfaceLogin {
+	// UserInterface for the customer as well as the employee are created
 	UserInterfaceCustomer UICustomer = new UserInterfaceCustomer();
 	UserInterfaceEmployee UIEmployee = new UserInterfaceEmployee();
 	
+	// main login menu
 	public void LoginMenu() {
 		Scanner scanner = new Scanner(System.in);
 		char option = '\0';
@@ -28,11 +30,13 @@ public class UserInterfaceLogin {
 					// Testing for User Authentication
 					UserAuthenticationDAO us = new UserAuthenticationDAO(username,password);
 					boolean UserAuth = us.UserAuthentication();
-					//If Login Successful and account type is customer then return customer menu
+					
+					// If Login Successful and account type is customer then return customer menu
 					if ( (UserAuth == true) && (us.getCurrentUser().isAccountType() == true)) {
 						UICustomer.CustomerMenu();
 						break;
 					}
+					
 					// If Login Successful and account type is employee then return employee menu
 					else if ( (UserAuth == true) && (us.getCurrentUser().isAccountType() == false) ) {
 						UIEmployee.EmployeeMenu();
@@ -44,9 +48,6 @@ public class UserInterfaceLogin {
 				case 'B':
 					System.out.println("Still under construction");
 					break;
-				case 'C':
-					System.out.println("Still under construction");
-					break;
 				case 'Q':
 					break;
 				default:
@@ -55,12 +56,11 @@ public class UserInterfaceLogin {
 		}while (option != 'Q');
 		System.out.println("Thank you for using our services");
 	}
-	
+	// private method to display different Login Options
 	private void LoginOptions() {
 		System.out.println("****Login Screen****");
 		System.out.println("Press 'A' to Log in");
 		System.out.println("Press 'B' to create a new customer account");
-		System.out.println("Press 'C' to create a new employee/admin account");
 		System.out.println("Press 'Q' to exit");
 	}
 }

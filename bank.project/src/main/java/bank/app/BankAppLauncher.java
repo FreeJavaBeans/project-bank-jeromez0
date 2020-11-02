@@ -20,10 +20,7 @@ public class BankAppLauncher {
 		System.out.println("Hello and welcome to the banking application");		
 		System.out.println("============================================\n");
 		
-		
 		UI.LoginMenu();
-		
-		
 		
 	}
 }
