@@ -6,7 +6,9 @@ import java.util.Scanner;
 import bank.resources.UserAuthenticationDAO;
 
 public class UserInterfaceLogin {
-
+	UserInterfaceCustomer UICustomer = new UserInterfaceCustomer();
+	UserInterfaceEmployee UIEmployee = new UserInterfaceEmployee();
+	
 	public void LoginMenu() {
 		Scanner scanner = new Scanner(System.in);
 		char option = '\0';
@@ -17,25 +19,28 @@ public class UserInterfaceLogin {
 			
 			switch(option) {
 				case 'A':
+					// Accepting User Inputs to Login
 					System.out.println("Enter a username:");		
 					String username = scanner.next();
 					System.out.println("Enter a password:");
 					String password = scanner.next();			
+					
+					// Testing for User Authentication
 					UserAuthenticationDAO us = new UserAuthenticationDAO(username,password);
-					// testing for user authentication
-						//testing if customer
-					if ( (us.UserAuthentication()) == true && (us.getCurrentUser().isAccountType() == true)) {
-						System.out.println("Cool Hi Customer");
+					boolean UserAuth = us.UserAuthentication();
+					//If Login Successful and account type is customer then return customer menu
+					if ( (UserAuth == true) && (us.getCurrentUser().isAccountType() == true)) {
+						UICustomer.CustomerMenu();
+						break;
 					}
-						// testing if employee
-//					else if ( (us.UserAuthentication() == true) && (us.getCurrentUser().isAccountType() == false) ) {
-//						System.out.println("Cool hi employee");
-//					}
-						//invalid option
-					else {
-					 ;
+					// If Login Successful and account type is employee then return employee menu
+					else if ( (UserAuth == true) && (us.getCurrentUser().isAccountType() == false) ) {
+						UIEmployee.EmployeeMenu();
+						break;
 					}
-					break;
+					//invalid option
+					else break;
+					
 				case 'B':
 					System.out.println("Still under construction");
 					break;
