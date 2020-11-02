@@ -6,9 +6,8 @@ import java.util.Scanner;
 
 import bank.resources.ConnectionUtility;
 import bank.resources.UserAuthenticationDAO;
-import bank.resources.UserInterface;
 
-
+import bank.UserInterface.*;
 
 public class BankAppLauncher {
 	
@@ -16,7 +15,7 @@ public class BankAppLauncher {
 //		ConnectionUtility cu = ConnectionUtility.getConnectionUtility();
 //		Connection conn = cu.getConnection();
 		
-		UserInterface UI = new UserInterface();
+		UserInterfaceLogin UI = new UserInterfaceLogin();
 		System.out.println("============================================");
 		System.out.println("Hello and welcome to the banking application");		
 		System.out.println("============================================\n");
