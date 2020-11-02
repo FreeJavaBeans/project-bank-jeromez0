@@ -96,5 +96,6 @@ insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DOB
 select * from UserAuth;
 select * from Customers;
 
+select * from "BankApplication".userauth where "Username" = 'Customer1';
 
 select * from "BankApplication".userauth u  where "KeyID" = 1;
