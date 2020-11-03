@@ -30,7 +30,9 @@ public class UserInterfaceEmployee {
 					break;
 			}
 		}while (option != 'Q');
-		System.out.println("Thank you for using our services");
+		System.out.println("***************");
+		System.out.println("Log Out Successful. Returning to Login screen.");
+		System.out.println("***************\n");
 	}
 	
 	private void EmployeeOptions() {
@@ -38,7 +40,7 @@ public class UserInterfaceEmployee {
 		System.out.println("Press 'A' to View Bank Accounts that are pending approval");
 		System.out.println("Press 'B' to View balances for a specific account");
 		System.out.println("Press 'C' to View log of all transcations");
-		System.out.println("Press 'Q' to Logout");
+		System.out.println("Press 'Q' to Logout\n");
 	}
 }
 

@@ -1,7 +1,8 @@
 package bank.UserInterface;
 
-import java.util.List;
 import java.util.Scanner;
+import java.util.Date;
+import java.sql.Timestamp;
 
 import bank.resources.UserAuthenticationDAO;
 
@@ -27,18 +28,19 @@ public class UserInterfaceLogin {
 					System.out.println("Enter a password:");
 					String password = scanner.next();			
 					
+					// Creating new user session
+					UserAuthenticationDAO Login = new UserAuthenticationDAO(username,password);
 					// Testing for User Authentication
-					UserAuthenticationDAO us = new UserAuthenticationDAO(username,password);
-					boolean UserAuth = us.UserAuthentication();
+					boolean UserAuth = Login.UserAuthentication();
 					
 					// If Login Successful and account type is customer then return customer menu
-					if ( (UserAuth == true) && (us.getCurrentUser().isAccountType() == true)) {
+					if ( (UserAuth == true) && (Login.getCurrentUser().isAccountType() == true)) {
 						UICustomer.CustomerMenu();
 						break;
 					}
 					
 					// If Login Successful and account type is employee then return employee menu
-					else if ( (UserAuth == true) && (us.getCurrentUser().isAccountType() == false) ) {
+					else if ( (UserAuth == true) && (Login.getCurrentUser().isAccountType() == false) ) {
 						UIEmployee.EmployeeMenu();
 						break;
 					}
@@ -46,21 +48,60 @@ public class UserInterfaceLogin {
 					else break;
 					
 				case 'B':
-					System.out.println("Still under construction");
-					break;
+					// accepting user inputs to create a new user account
+					System.out.println("Enter a username:");
+					String username1 = scanner.next();
+					System.out.println("Enter a password:");
+					String password1 = scanner.next();
+					// creating new user authentication session
+					UserAuthenticationDAO CreateAccount = new UserAuthenticationDAO(username1,password1);
+					// if true then break 
+					if (CreateAccount.UserAuthNewAccount(username1, password1) == true) { 
+						NewCustomerAccount(scanner, CreateAccount);
+					}
+					else
+						System.out.println("Creating a new user account failed.\n");
+						break;						
+						
 				case 'Q':
 					break;
 				default:
 					System.out.println("Invalid option; please try again");
 			}
 		}while (option != 'Q');
-		System.out.println("Thank you for using our services");
+		System.out.println("***************");
+		System.out.println("Thank you for using our services. Exiting Application");
+		System.out.println("***************\n");
 	}
 	// private method to display different Login Options
 	private void LoginOptions() {
 		System.out.println("****Login Screen****");
 		System.out.println("Press 'A' to Log in");
 		System.out.println("Press 'B' to create a new customer account");
-		System.out.println("Press 'Q' to exit");
+		System.out.println("Press 'Q' to exit\n");
 	}
+	
+	// private method to accept user input for the Create New Customer Account form
+	private void NewCustomerAccount(Scanner scanner, UserAuthenticationDAO CreateAccount) {
+		System.out.println("All fields required");
+		System.out.println("Enter your first name:");
+		String firstname= scanner.next();
+		
+		System.out.println("Enter your last name:");
+		String lastname= scanner.next();
+		
+		System.out.println("Enter your email address:");
+		String email= scanner.next();
+		
+		System.out.println("Enter your home address:");
+		String address = scanner.next();
+		
+		System.out.println("Enter your date of birth (YYYY-MM-DD):");
+		String sDate1 = scanner.next();
+		Date date = new Date();  
+		Timestamp ts=new Timestamp(date.getTime());  
+		System.out.println(ts);       
+		CreateAccount.NewCustomerAccount(firstname, lastname, email, address, ts);
+	}
+	
 }

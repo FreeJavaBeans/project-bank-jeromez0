@@ -39,7 +39,9 @@ public class UserInterfaceCustomer {
 					break;
 			}
 		}while (option != 'Q');
-		System.out.println("Thank you for using our services");
+		System.out.println("***************");
+		System.out.println("Log Out Successful. Returning to Login screen.\n");
+		System.out.println("***************\n");
 	}
 	
 	private void CustomerOptions() {
@@ -50,7 +52,7 @@ public class UserInterfaceCustomer {
 		System.out.println("Press 'D' to Make a withdrawal or a deposit for a specific account");
 		System.out.println("Press 'E' to post a money transfer to a specific account");
 		System.out.println("Press 'F' to view and/or accept pending money transfers");
-		System.out.println("Press 'Q' to Logout");
+		System.out.println("Press 'Q' to Logout\n");
 	}
 	
 }

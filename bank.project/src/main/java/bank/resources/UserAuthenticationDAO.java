@@ -1,10 +1,10 @@
 package bank.resources;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import bank.users.User;
 
@@ -14,15 +14,16 @@ public class UserAuthenticationDAO {
 	String Username;
 	String Password;
 	User CurrentUser;
+	
+	/* SQL Queries 
+	*/ 
 	String QueryLogin = "select * from \"BankApplication\".UserAuth where \"Username\" = ?;";
-	
-	String CreateUser = "insert into UserAuth (\"Username\", \"Password\", \"AccountType\") values (?,?,true);";
-	
+	String CreateUser = "insert into \"BankApplication\".UserAuth (\"Username\", \"Password\", \"AccountType\") values (?,?,true);";
 	String getKeyID = "select KeyID from \"BankApplication\".UserAuth where \"Username\" = ?;";
-	
 	String EnterCustomerDetails = "insert into Customers (\"KeyID\", \"FirstName\", \"LastName\", \"Email\", \"Address\",\"DOB\") "+
 								  "values (?,?,?,?,?,?)";
-	
+	/*
+	*/
 	
 	// public constructor method
 	public UserAuthenticationDAO(String username, String password) {
@@ -39,8 +40,7 @@ public class UserAuthenticationDAO {
 		System.out.println("........................");
 		System.out.println("........................");
 		// tries the SQL query
-		try {
-			Statement statementObject = conn.createStatement();					
+		try {	
 			PreparedStatement prepStatement = conn.prepareStatement(this.QueryLogin);
 			prepStatement.setString(1, this.Username);
 			// System.out.println("Prepared String: " + prepStatement);	printing out the SQL QUERY			
@@ -65,22 +65,78 @@ public class UserAuthenticationDAO {
 				System.out.println("****Incorrect Username or Password, Login Failed****\n");
 				return false;
 			}
-				
+		// if the SQL query doesn't work then show the exception		
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL Exception e");
 			return false;
 		}	
+	}	
+	// method for creating a new account
+	public boolean UserAuthNewAccount(String Username, String Password) {
+		// get a connection
+		Connection conn = cu.getConnection();
+		// authentication process starts
+		System.out.println("\n*****Creating User Account*****");
+		System.out.println("........................");
+		System.out.println("........................");
+		System.out.println("........................");
+		// tries the SQL query
+		try {		
+			PreparedStatement prepStatement = conn.prepareStatement(this.CreateUser);
+			prepStatement.setString(1, this.Username);
+			prepStatement.setString(2,  this.Password);
+			prepStatement.execute();
+			System.out.println("****Account created successfully****\n");
+			return true;
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL Exception");
+			return false;
+		}
 	}
 	
-	// method for creating a new account
-	public void UserAuthNewAccount(String Username, String Password, boolean AccountType) {
-		
+	public boolean NewCustomerAccount(String firstname, String lastname, String email, String address, Timestamp ts) {
+		// get a connection
+		Connection conn = cu.getConnection();
+		try {		
+			PreparedStatement prepStatement = conn.prepareStatement(this.EnterCustomerDetails);
+			prepStatement.setInt(1, this.getKeyID());
+			prepStatement.setString(2, firstname);
+			prepStatement.setString(3, lastname);
+			prepStatement.setString(4,  email);
+			prepStatement.setString(5,  address);
+			prepStatement.setTimestamp(6, ts);
+			System.out.println("****Account created successfully****\n");
+			return true;
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL Exception");
+			return false;
+		}
+	}
+	
+	private int getKeyID() {
+		// get a connection
+		Connection conn = cu.getConnection();
+		try {			
+			PreparedStatement prepStatement = conn.prepareStatement(this.getKeyID);
+			prepStatement.setString(1, this.Username);
+			ResultSet results = prepStatement.executeQuery();
+			while(results.next()) {			 
+				return (results.getInt("KeyID"));
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL Exception");
+			return 0;
+		}
+		return 0;
 	}
 	
 	private boolean UserAuthentication(User TestUser, String username, String password) {
 		try {
-			if (TestUser.getUsername().equals(username) && TestUser.getPassword().equals(password)) { 
+			if (TestUser.getUsername().equals(username) && TestUser.getPassword().equals(password)) {
 				return true;
 			}
 			else {
