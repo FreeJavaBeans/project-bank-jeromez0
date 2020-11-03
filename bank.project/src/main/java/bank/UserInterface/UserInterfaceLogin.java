@@ -13,9 +13,10 @@ public class UserInterfaceLogin {
 	
 	// main login menu
 	public void LoginMenu() {
-		Scanner scanner = new Scanner(System.in);
+		
 		char option = '\0';
 		do {
+			Scanner scanner = new Scanner(System.in);
 			this.LoginOptions();
 			System.out.println("Enter an option: ");
 			option = scanner.next().charAt(0);		
@@ -26,19 +27,16 @@ public class UserInterfaceLogin {
 					System.out.println("Enter a username:");		
 					String username = scanner.next();
 					System.out.println("Enter a password:");
-					String password = scanner.next();			
-					
+					String password = scanner.next();								
 					// Creating new user session
 					UserAuthenticationDAO Login = new UserAuthenticationDAO(username,password);
 					// Testing for User Authentication
-					boolean UserAuth = Login.UserAuthentication();
-					
+					boolean UserAuth = Login.UserAuthentication();					
 					// If Login Successful and account type is customer then return customer menu
 					if ( (UserAuth == true) && (Login.getCurrentUser().isAccountType() == true)) {
 						UICustomer.CustomerMenu();
 						break;
-					}
-					
+					}					
 					// If Login Successful and account type is employee then return employee menu
 					else if ( (UserAuth == true) && (Login.getCurrentUser().isAccountType() == false) ) {
 						UIEmployee.EmployeeMenu();
@@ -55,7 +53,7 @@ public class UserInterfaceLogin {
 					String password1 = scanner.next();
 					// creating new user authentication session
 					UserAuthenticationDAO CreateAccount = new UserAuthenticationDAO(username1,password1);
-					// if true then break 
+					// if the user account is created successfully then add customer details
 					if (CreateAccount.UserAuthNewAccount(username1, password1) == true) { 
 						NewCustomerAccount(scanner, CreateAccount);
 						break;
@@ -81,26 +79,21 @@ public class UserInterfaceLogin {
 		System.out.println("Press 'B' to create a new customer account");
 		System.out.println("Press 'Q' to exit\n");
 	}
-	
 	// private method to accept user input for the Create New Customer Account form
 	private void NewCustomerAccount(Scanner scanner, UserAuthenticationDAO CreateAccount) {
 		System.out.println("All fields required");
 		System.out.println("Enter your first name:");
 		String firstname= scanner.next();
-		
 		System.out.println("Enter your last name:");
 		String lastname= scanner.next();
-		
 		System.out.println("Enter your email address:");
 		String email= scanner.next();
-		
 		System.out.println("Enter your home address:");
-		String address = scanner.next();
-		
+		scanner.nextLine();
+		String address = scanner.nextLine();
 		Date date = new Date();  
 		Timestamp ts=new Timestamp(date.getTime());  
 //		System.out.println(ts);       
 		CreateAccount.NewCustomerAccount(firstname, lastname, email, address, ts);
 	}
-	
 }

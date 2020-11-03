@@ -67,35 +67,31 @@ public class UserAuthenticationDAO {
 			}
 		// if the SQL query doesn't work then show the exception		
 		}catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			System.out.println("SQL Exception e");
 			return false;
 		}	
 	}	
-	// method for creating a new account
+	// method for creating a new user account
 	public boolean UserAuthNewAccount(String Username, String Password) {
 		// get a connection
 		Connection conn = cu.getConnection();
-		// authentication process starts
-		System.out.println("\n*****Creating User Account*****");
-		System.out.println("........................");
-		System.out.println("........................");
-		System.out.println("........................");
+		// Creating User Account Starts
+		System.out.println("\n*****Creating User Account*****\n");
 		// tries the SQL query
 		try {		
 			PreparedStatement prepStatement = conn.prepareStatement(this.CreateUser);
 			prepStatement.setString(1, this.Username);
 			prepStatement.setString(2,  this.Password);
 			prepStatement.execute();
-			System.out.println("****Account created successfully****\n");
 			return true;
 		}catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			System.out.println("SQL Exception");
 			return false;
 		}
 	}
-	
+	// method for logging new account details
 	public boolean NewCustomerAccount(String firstname, String lastname, String email, String address, Timestamp ts) {
 		// get a connection
 		Connection conn = cu.getConnection();
@@ -109,15 +105,14 @@ public class UserAuthenticationDAO {
 			prepStatement.setTimestamp(6, ts);
 			prepStatement.execute();
 			System.out.println("****Account created successfully****\n");
-			System.out.println(this.getKey());
 			return true;
 		}catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("SQL Exception");
+			System.out.println("Error: Email address with account already exists.");
 			return false;
 		}
 	}
-	
+	// get the correct KeyID for the new account
 	private int getKey() {
 		// get a connection
 		Connection conn = cu.getConnection();
@@ -135,7 +130,7 @@ public class UserAuthenticationDAO {
 		}
 		return 0;
 	}
-	
+	// this method tests if the user inputted username and password match identically with the queried username and password 
 	private boolean UserAuthentication(User TestUser, String username, String password) {
 		try {
 			if (TestUser.getUsername().equals(username) && TestUser.getPassword().equals(password)) {
