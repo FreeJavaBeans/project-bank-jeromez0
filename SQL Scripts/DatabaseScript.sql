@@ -32,7 +32,7 @@ create table Employees
 	"LastName" varchar(40) not null,
 	"Email" varchar(60) not null,
 	"Address" varchar(100),
-	"DOB" timestamp,
+	"DateCreated" timestamp,
 	foreign key ("KeyID")
 		references UserAuth ("KeyID")
 );
@@ -44,7 +44,7 @@ create table Customers
 	"LastName" varchar(40) not null,
 	"Email" varchar(60) not null,
 	"Address" varchar(100) not null,
-	"DOB" timestamp not null,
+	"DateCreated" timestamp not null,
 	foreign key ("KeyID")
 		references UserAuth ("KeyID")
 );
@@ -72,25 +72,29 @@ create unique index Unique_Usernames on UserAuth("Username");
 
 -- Employees
 insert into UserAuth ("Username","Password", "AccountType") values ('Employee1', 'password', false);
-insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DOB") values (1, 'John', 'Doe', 'John.Doe@BankApp.com','100 Cool Lane', '03/23/1968');
+insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (1, 'John', 'Doe', 'John.Doe@BankApp.com','100 Cool Lane', '03/23/1968');
 insert into UserAuth ("Username","Password", "AccountType") values ('Employee2', 'password', false);
-insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DOB") values (2, 'Jon', 'Roe', 'Jon.Roe@BankApp.com','101 Cool Lane','04/23/1988');
+insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (2, 'Jon', 'Roe', 'Jon.Roe@BankApp.com','101 Cool Lane','04/23/1988');
 insert into UserAuth ("Username","Password", "AccountType") values ('Employee3', 'password', false);
-insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DOB") values (3, 'Jane', 'Doe', 'Jane.Doe@BankApp.com','102 Cool Lane', '06/14/1989');
+insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (3, 'Jane', 'Doe', 'Jane.Doe@BankApp.com','102 Cool Lane', '06/14/1989');
 insert into UserAuth ("Username","Password", "AccountType") values ('Employee4', 'password', false);
-insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DOB") values (4, 'Janice', 'Rogriguez', 'Janice.Rodriguez@BankApp.com','104 Awesome Lane','02/14/1998');
+insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (4, 'Janice', 'Rogriguez', 'Janice.Rodriguez@BankApp.com','104 Awesome Lane','02/14/1998');
 
 -- Customers
 insert into UserAuth ("Username","Password", "AccountType") values ('Customer1', 'password', true);
-insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DOB") values (5, 'Maurice', 'Johnson', 'MauriceJohnson@google.com','100 Cool Street', '03/23/1968');
+insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (5, 'Maurice', 'Johnson', 'MauriceJohnson@google.com','100 Cool Street', '03/23/1968');
 insert into UserAuth ("Username","Password", "AccountType") values ('Customer2', 'password', true);
-insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DOB") values (6, 'Hope', 'Marshall', 'hope_Marshall@yahoo.com','101 Cool Avenue','08/23/1978');
+insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (6, 'Hope', 'Marshall', 'hope_Marshall@yahoo.com','101 Cool Avenue','08/23/1978');
 insert into UserAuth ("Username","Password", "AccountType") values ('Customer3', 'password', true);
-insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DOB") values (7, 'Marissa', 'Lawson', 'marissa_lawson@gmail.com','104 Pool Avenue', '05/14/1989');
+insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (7, 'Marissa', 'Lawson', 'marissa_lawson@gmail.com','104 Pool Avenue', '05/14/1989');
 insert into UserAuth ("Username","Password", "AccountType") values ('Customer4', 'password', true);
-insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DOB") values (8, 'Janet', 'Mason', 'JanetMason@yahoo.com','104 Awesome Drive','02/17/1995');
+insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (8, 'Janet', 'Mason', 'JanetMason@yahoo.com','104 Awesome Drive','02/17/1995');
 
 -- testing
 select * from UserAuth;
 select * from Employees;
 select * from Customers;
+
+
+
+

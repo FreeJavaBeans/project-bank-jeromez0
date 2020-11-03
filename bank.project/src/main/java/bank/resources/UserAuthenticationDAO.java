@@ -19,8 +19,8 @@ public class UserAuthenticationDAO {
 	*/ 
 	String QueryLogin = "select * from \"BankApplication\".UserAuth where \"Username\" = ?;";
 	String CreateUser = "insert into \"BankApplication\".UserAuth (\"Username\", \"Password\", \"AccountType\") values (?,?,true);";
-	String getKeyID = "select KeyID from \"BankApplication\".UserAuth where \"Username\" = ?;";
-	String EnterCustomerDetails = "insert into Customers (\"KeyID\", \"FirstName\", \"LastName\", \"Email\", \"Address\",\"DOB\") "+
+	String getKeyID = "select \"KeyID\" from \"BankApplication\".UserAuth where \"Username\" = ?;";
+	String EnterCustomerDetails = "insert into \"BankApplication\".Customers (\"KeyID\", \"FirstName\", \"LastName\", \"Email\", \"Address\",\"DateCreated\") "+
 								  "values (?,?,?,?,?,?)";
 	/*
 	*/
@@ -101,13 +101,15 @@ public class UserAuthenticationDAO {
 		Connection conn = cu.getConnection();
 		try {		
 			PreparedStatement prepStatement = conn.prepareStatement(this.EnterCustomerDetails);
-			prepStatement.setInt(1, this.getKeyID());
+			prepStatement.setInt(1, this.getKey());
 			prepStatement.setString(2, firstname);
 			prepStatement.setString(3, lastname);
 			prepStatement.setString(4,  email);
 			prepStatement.setString(5,  address);
 			prepStatement.setTimestamp(6, ts);
+			prepStatement.execute();
 			System.out.println("****Account created successfully****\n");
+			System.out.println(this.getKey());
 			return true;
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -116,7 +118,7 @@ public class UserAuthenticationDAO {
 		}
 	}
 	
-	private int getKeyID() {
+	private int getKey() {
 		// get a connection
 		Connection conn = cu.getConnection();
 		try {			

@@ -58,6 +58,7 @@ public class UserInterfaceLogin {
 					// if true then break 
 					if (CreateAccount.UserAuthNewAccount(username1, password1) == true) { 
 						NewCustomerAccount(scanner, CreateAccount);
+						break;
 					}
 					else
 						System.out.println("Creating a new user account failed.\n");
@@ -96,11 +97,9 @@ public class UserInterfaceLogin {
 		System.out.println("Enter your home address:");
 		String address = scanner.next();
 		
-		System.out.println("Enter your date of birth (YYYY-MM-DD):");
-		String sDate1 = scanner.next();
 		Date date = new Date();  
 		Timestamp ts=new Timestamp(date.getTime());  
-		System.out.println(ts);       
+//		System.out.println(ts);       
 		CreateAccount.NewCustomerAccount(firstname, lastname, email, address, ts);
 	}
 	
