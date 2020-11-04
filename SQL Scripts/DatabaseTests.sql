@@ -12,3 +12,6 @@ select * from "BankApplication".userauth u  where "KeyID" = 1;
 
 insert into UserAuth ("Username","Password", "AccountType") 
 values ('Customer1', 'password', true);
+
+
+select * from "BankApplication".customers where "KeyID" = 9;

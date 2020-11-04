@@ -2,8 +2,17 @@ package bank.UserInterface;
 
 import java.util.Scanner;
 import bank.resources.CustomerDAO;
+import bank.users.User;
 
 public class UserInterfaceCustomer {
+	
+	int KeyID;
+	CustomerDAO customerDAO;
+	
+	UserInterfaceCustomer(int keyID, User current) {
+		this.KeyID = keyID;
+		this.customerDAO = new CustomerDAO(this.KeyID, current);
+	}
 	
 	public void CustomerMenu() {
 		Scanner scanner = new Scanner(System.in);
@@ -32,6 +41,10 @@ public class UserInterfaceCustomer {
 				case 'F':
 					System.out.println("Still under construction");
 					break;
+				case 'G':
+					System.out.println("Still under construction");
+				case 'H': 
+					customerDAO.ShowCustomerDetails();
 				case 'Q':
 					break;
 				default:
@@ -49,9 +62,11 @@ public class UserInterfaceCustomer {
 		System.out.println("Press 'A' to Apply for new bank account");
 		System.out.println("Press 'B' to View balances for all accounts");
 		System.out.println("Press 'C' to View balances for a specific account");
-		System.out.println("Press 'D' to Make a withdrawal or a deposit for a specific account");
-		System.out.println("Press 'E' to post a money transfer to a specific account");
-		System.out.println("Press 'F' to view and/or accept pending money transfers");
+		System.out.println("Press 'D' to Make a withdrawal for a specific account");
+		System.out.println("Press 'E' to make a deposit for a specific account");
+		System.out.println("Press 'F' to post a money transfer to a specific account");
+		System.out.println("Press 'G' to view and/or accept pending money transfers");
+		System.out.println("Press 'H' to view current user details");
 		System.out.println("Press 'Q' to Logout\n");
 	}
 	

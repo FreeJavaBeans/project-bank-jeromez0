@@ -8,7 +8,6 @@ import bank.resources.UserAuthenticationDAO;
 
 public class UserInterfaceLogin {
 	// UserInterface for the customer as well as the employee are created
-	UserInterfaceCustomer UICustomer = new UserInterfaceCustomer();
 	UserInterfaceEmployee UIEmployee = new UserInterfaceEmployee();
 	
 	// main login menu
@@ -34,6 +33,7 @@ public class UserInterfaceLogin {
 					boolean UserAuth = Login.UserAuthentication();					
 					// If Login Successful and account type is customer then return customer menu
 					if ( (UserAuth == true) && (Login.getCurrentUser().isAccountType() == true)) {
+						UserInterfaceCustomer UICustomer = new UserInterfaceCustomer(Login.getCurrentUser().getKeyID(), Login.getCurrentUser());
 						UICustomer.CustomerMenu();
 						break;
 					}					

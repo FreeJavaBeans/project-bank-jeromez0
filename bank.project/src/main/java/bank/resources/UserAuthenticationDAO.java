@@ -87,7 +87,7 @@ public class UserAuthenticationDAO {
 			return true;
 		}catch (SQLException e) {
 //			e.printStackTrace();
-			System.out.println("SQL Exception");
+			System.out.println("Error: Username with account already exists.");
 			return false;
 		}
 	}
