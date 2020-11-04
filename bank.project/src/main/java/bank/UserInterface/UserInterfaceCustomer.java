@@ -24,7 +24,10 @@ public class UserInterfaceCustomer {
 			
 			switch(option) {
 				case 'A':
-					System.out.println("Still under construction");
+					System.out.println("****Creating new bank account****");
+					System.out.println("How much would you like to deposit as your starting balance?");
+					float startingBal = scanner.nextFloat();
+					this.customerDAO.ApplyBankAccount(startingBal);
 					break;
 				case 'B':
 					System.out.println("Still under construction");
@@ -69,5 +72,4 @@ public class UserInterfaceCustomer {
 		System.out.println("Press 'H' to view current user details");
 		System.out.println("Press 'Q' to Logout\n");
 	}
-	
 }

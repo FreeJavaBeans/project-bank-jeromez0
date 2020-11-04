@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Random;
 
 import bank.users.Customer;
 import bank.users.User;
@@ -20,12 +22,15 @@ public class CustomerDAO {
 	private int KeyID;
 	private Customer CurrentCustomer = new Customer();
 	private User CurrentUser;
+	private int routingID = 123456789;
 	private ConnectionUtility cu = ConnectionUtility.getConnectionUtility();
+	
 	/*
 	 * SQL Queries
 	 */
 	String getCustomerInformation = "select * from \"BankApplication\".customers where \"KeyID\" = ?";
-	
+	String createNewBankAccount = "insert into \"BankApplication\".BankAccounts (\"KeyID\", \"AccountID\", \"RoutingID\", \"Balance\", \"Approval\", \"DateCreated\") " + 
+								  "values (?,?,?,?,false,?)";
 	
 	public CustomerDAO(int KeyID, User current) {
 		// get a connection
@@ -65,9 +70,44 @@ public class CustomerDAO {
 		System.out.println("Date customer account created: " + CurrentCustomer.getDateCreated() + "\n");
 	}
 	
-	public void ApplyBankAccount() {
+	public boolean ApplyBankAccount(float startingBalance) {
+		// get a connection
+		Connection conn = cu.getConnection();
+		// generate a random accounting number
+		Random rand = new Random();
+		int accountNumber = 100000000 + rand.nextInt(900000000);
+		// generate a timestamp
+		Date date = new Date();  
+		Timestamp ts=new Timestamp(date.getTime());  
+		String time = ts.toString();
+		if (startingBalance < 0) {
+			System.out.println("Impossible to start with a balance less than 0.");
+			return false;
+		}
 		
+		try {		
+			PreparedStatement prepStatement = conn.prepareStatement(this.createNewBankAccount);
+			prepStatement.setInt(1, this.KeyID);
+			prepStatement.setInt(2, accountNumber);
+			prepStatement.setInt(3, this.routingID);
+			prepStatement.setFloat(4, startingBalance);
+			prepStatement.setTimestamp(5, ts);
+			prepStatement.execute();			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error: Account with RoutingID already exists.");
+			return false;
+		}
+		System.out.println("\n**********");
+		System.out.println("Account number: " + accountNumber);
+		System.out.println("Routing ID: " + this.routingID);
+		System.out.println("Date created: " + time);
+		System.out.println("Current Balance: " + startingBalance);
+		System.out.println("Approval: pending");
+		System.out.println("****New Account Successfully Created****\n");
+		return true;
 	}
+	
 	public void ViewBalances() {
 		
 	}

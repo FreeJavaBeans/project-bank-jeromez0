@@ -14,7 +14,6 @@ public class UserAuthenticationDAO {
 	String Username;
 	String Password;
 	User CurrentUser;
-	
 	/* SQL Queries 
 	*/ 
 	String QueryLogin = "select * from \"BankApplication\".UserAuth where \"Username\" = ?;";
@@ -82,7 +81,7 @@ public class UserAuthenticationDAO {
 		try {		
 			PreparedStatement prepStatement = conn.prepareStatement(this.CreateUser);
 			prepStatement.setString(1, this.Username);
-			prepStatement.setString(2,  this.Password);
+			prepStatement.setString(2, this.Password);
 			prepStatement.execute();
 			return true;
 		}catch (SQLException e) {

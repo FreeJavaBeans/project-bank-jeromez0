@@ -50,20 +50,19 @@ create table Customers
 );
 
 create table BankAccounts
-(
-	"KeyID" serial primary key,	
+(	
+	"KeyID" int not null,
 	"AccountID" varchar(16) not null,
 	"RoutingID" varchar(16) not null,
 	"Balance" numeric(10,2) not null,
 	"Approval" boolean,
-	"DateCreated" timestamp,
+	"DateCreated" timestamp not null,
 	foreign key ("KeyID")
 		references Customers ("KeyID")
 );
 
 create unique index Unique_Emails on Customers("Email");
 create unique index Unique_Account_ID on BankAccounts("AccountID");
-create unique index Unique_Routing_ID on BankAccounts("AccountID");
 create unique index Unique_Usernames on UserAuth("Username");
 
 /**************
@@ -90,11 +89,15 @@ insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","Dat
 insert into UserAuth ("Username","Password", "AccountType") values ('Customer4', 'password', true);
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (8, 'Janet', 'Mason', 'JanetMason@yahoo.com','104 Awesome Drive','02/17/1995');
 
+--Bank Accounts
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 123456789, 123456789, 1034.34, true, '09/15/2020');
+
+
 -- testing
 select * from UserAuth;
 select * from Employees;
 select * from Customers;
-
+select * from BankAccounts;
 
 
 
