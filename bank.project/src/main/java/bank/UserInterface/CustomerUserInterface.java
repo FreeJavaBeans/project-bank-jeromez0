@@ -4,12 +4,12 @@ import java.util.Scanner;
 import bank.resources.CustomerDAO;
 import bank.users.User;
 
-public class UserInterfaceCustomer {
+public class CustomerUserInterface {
 	
 	int KeyID;
 	CustomerDAO customerDAO;
 	
-	UserInterfaceCustomer(int keyID, User current) {
+	CustomerUserInterface(int keyID, User current) {
 		this.KeyID = keyID;
 		this.customerDAO = new CustomerDAO(this.KeyID, current);
 	}
@@ -35,10 +35,18 @@ public class UserInterfaceCustomer {
 					this.customerDAO.ViewSpecificBalance(AccountNum);
 					break;
 				case 'C':
-					System.out.println("Still under construction");
+					System.out.println("Please enter the Account ID of the account you wish to make a deposit: ");
+					int AccountNum1 = scanner.nextInt();
+					System.out.println("Please enter the amount you wish to deposit:");
+					float depositAmount = scanner.nextFloat();
+					this.customerDAO.MakeDeposit(AccountNum1, depositAmount);
 					break;
 				case 'D':
-					System.out.println("Still under construction");
+					System.out.println("Please enter the Account ID of the account you wish to make a withdrawal: ");
+					int AccountNum2 = scanner.nextInt();
+					System.out.println("Please enter the amount you wish to withdraw:");
+					float withdrawalAmount = scanner.nextFloat();
+					this.customerDAO.MakeWithdrawal(AccountNum2, withdrawalAmount);
 					break;
 				case 'E':
 					System.out.println("Still under construction");
@@ -63,8 +71,8 @@ public class UserInterfaceCustomer {
 		System.out.println("****Customer Screen****");
 		System.out.println("Press 'A' to Apply for new bank account");
 		System.out.println("Press 'B' to View balances for a specific account");
-		System.out.println("Press 'C' to Make a withdrawal for a specific account");
-		System.out.println("Press 'D' to make a deposit for a specific account");
+		System.out.println("Press 'C' to make a deposit for a specific account");
+		System.out.println("Press 'D' to Make a withdrawal for a specific account");
 		System.out.println("Press 'E' to post a money transfer to a specific account");
 		System.out.println("Press 'F' to view and/or accept pending money transfers");
 		System.out.println("Press 'G' to view current user details");

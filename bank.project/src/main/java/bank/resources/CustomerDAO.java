@@ -24,6 +24,9 @@ public class CustomerDAO {
 	String createNewBankAccount = "insert into \"BankApplication\".BankAccounts (\"KeyID\", \"AccountID\", \"RoutingID\", \"Balance\", \"Approval\", \"DateCreated\") " + 
 								  "values (?,?,?,?,false,?)";
 	String viewAccountBalance = "select * from \"BankApplication\".BankAccounts where \"KeyID\" = ? and \"AccountID\" = ?";
+	String makeDeposit = "Update \"BankApplication\".BankAccounts set \"Balance\" = ? where \"KeyID\" = ? and \"AccountID\" = ?";
+	String makeWithdrawal = "Update \"BankApplication\".BankAccounts set \"Balance\" = ? where \"KeyID\" = ? and \"AccountID\" = ?";
+	String findBalance = "select \"Balance\" from \"BankApplication\".BankAccounts where \"KeyID\" = ? and \"AccountID\" = ?";
 	//
 	// Primary constructor method
 	public CustomerDAO(int KeyID, User current) {
@@ -111,13 +114,55 @@ public class CustomerDAO {
 			System.out.println("Invalid Authorization or Account ID");
 		}	
 	}
-	// Making a withdrawal
-	public void MakeWithdrawal() {
-		
-	}
 	// Making a deposit
-	public void MakeDeposit() {
-		
+	public void MakeDeposit(int AccountNum, float depositAmount) {
+		float currentBalance = this.GetBal(AccountNum);
+		float newBalance = currentBalance + depositAmount;
+		// get a connection
+		Connection conn = cu.getConnection(); 		
+		try {	
+			PreparedStatement prepStatement = conn.prepareStatement(this.makeDeposit);
+			prepStatement.setFloat(1, newBalance);
+			prepStatement.setInt(2, this.KeyID);
+			prepStatement.setInt(3, AccountNum);	
+			prepStatement.execute();
+		// if the SQL query doesn't work then show the exception		
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Invalid Authorization or Account ID");
+		}
+		System.out.println("****Deposit Information****");
+		System.out.println("Account ID: " + AccountNum);
+		System.out.println("Previous Balance: " + currentBalance);
+		System.out.println("New Balance: " + newBalance);
+		System.out.println("**************************\n");
+	}
+	// Making a withdrawal
+	public void MakeWithdrawal(int AccountNum, float withdrawalAmount) {
+		float currentBalance = this.GetBal(AccountNum);
+		float newBalance = currentBalance - withdrawalAmount;
+		if (newBalance < 0) {
+			System.out.println("Invalid Withdrawal. Completing transaction would leave your bank account with less than $0.00.");
+			return;
+		}
+		// get a connection
+		Connection conn = cu.getConnection(); 		
+		try {	
+			PreparedStatement prepStatement = conn.prepareStatement(this.makeWithdrawal);
+			prepStatement.setFloat(1, newBalance);
+			prepStatement.setInt(2, this.KeyID);
+			prepStatement.setInt(3, AccountNum);	
+			prepStatement.execute();
+		// if the SQL query doesn't work then show the exception		
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Invalid Authorization or Account ID");
+		}
+		System.out.println("****Withdrawal Information****");
+		System.out.println("Account ID: " + AccountNum);
+		System.out.println("Previous Balance: " + currentBalance);
+		System.out.println("New Balance: " + newBalance);
+		System.out.println("**************************\n");
 	}
 	// Posting a money transfer
 	public void PostMoneyTransfer() {
@@ -127,6 +172,7 @@ public class CustomerDAO {
 	public void ViewMoneyTransfers() {
 		
 	}
+	// Show customer details
 	public void ShowCustomerDetails() {
 		System.out.println("****Customer Details****\n");
 		System.out.println("Username: "  + CurrentUser.getUsername());
@@ -135,5 +181,24 @@ public class CustomerDAO {
 		System.out.println("Email address: " + CurrentCustomer.getEmail());
 		System.out.println("Home address: " + CurrentCustomer.getAddress());
 		System.out.println("Date customer account created: " + CurrentCustomer.getDateCreated() + "\n");
+	}
+	
+	private float GetBal(int AccountNum) {
+		float bal;
+		Connection conn = cu.getConnection();
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(this.findBalance);
+			prepStatement.setInt(1,  this.KeyID);
+			prepStatement.setInt(2,  AccountNum);
+			ResultSet results = prepStatement.executeQuery();
+			while(results.next()) {
+				bal = results.getFloat("Balance");
+				return bal;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL Query Failure");
+		}
+		return 0;
 	}
 }

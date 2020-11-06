@@ -6,9 +6,9 @@ import java.sql.Timestamp;
 
 import bank.resources.UserAuthenticationDAO;
 
-public class UserInterfaceLogin {
+public class LoginUserInterface {
 	// UserInterface for the customer as well as the employee are created
-	UserInterfaceEmployee UIEmployee = new UserInterfaceEmployee();
+	EmployeeUserInterface UIEmployee = new EmployeeUserInterface();
 	
 	// main login menu
 	public void LoginMenu() {
@@ -33,7 +33,7 @@ public class UserInterfaceLogin {
 					boolean UserAuth = Login.UserAuthentication();					
 					// If Login Successful and account type is customer then return customer menu
 					if ( (UserAuth == true) && (Login.getCurrentUser().isAccountType() == true)) {
-						UserInterfaceCustomer UICustomer = new UserInterfaceCustomer(Login.getCurrentUser().getKeyID(), Login.getCurrentUser());
+						CustomerUserInterface UICustomer = new CustomerUserInterface(Login.getCurrentUser().getKeyID(), Login.getCurrentUser());
 						UICustomer.CustomerMenu();
 						break;
 					}					

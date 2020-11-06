@@ -15,7 +15,7 @@ public class BankAppLauncher {
 //		ConnectionUtility cu = ConnectionUtility.getConnectionUtility();
 //		Connection conn = cu.getConnection();
 		
-		UserInterfaceLogin UI = new UserInterfaceLogin();
+		LoginUserInterface UI = new LoginUserInterface();
 		System.out.println("============================================");
 		System.out.println("Hello and welcome to the banking application");		
 		System.out.println("============================================\n");

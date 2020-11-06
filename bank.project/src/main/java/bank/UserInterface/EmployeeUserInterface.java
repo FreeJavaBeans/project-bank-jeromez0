@@ -3,7 +3,7 @@ package bank.UserInterface;
 import java.util.Scanner;
 import bank.resources.EmployeeDAO;
 
-public class UserInterfaceEmployee {
+public class EmployeeUserInterface {
 	
 	public void EmployeeMenu() {
 		Scanner scanner = new Scanner(System.in);
