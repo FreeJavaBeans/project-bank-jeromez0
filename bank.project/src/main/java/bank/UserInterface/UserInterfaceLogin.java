@@ -60,8 +60,7 @@ public class UserInterfaceLogin {
 					}
 					else
 						System.out.println("Creating a new user account failed.\n");
-						break;						
-						
+						break;												
 				case 'Q':
 					break;
 				default:

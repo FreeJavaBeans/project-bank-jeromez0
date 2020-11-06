@@ -52,7 +52,7 @@ create table Customers
 create table BankAccounts
 (	
 	"KeyID" int not null,
-	"AccountID" varchar(16) not null,
+	"AccountID" int not null,
 	"RoutingID" varchar(16) not null,
 	"Balance" numeric(10,2) not null,
 	"Approval" boolean,

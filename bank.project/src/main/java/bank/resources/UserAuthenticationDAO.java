@@ -14,16 +14,12 @@ public class UserAuthenticationDAO {
 	String Username;
 	String Password;
 	User CurrentUser;
-	/* SQL Queries 
-	*/ 
+	// SQL Queries 
 	String QueryLogin = "select * from \"BankApplication\".UserAuth where \"Username\" = ?;";
 	String CreateUser = "insert into \"BankApplication\".UserAuth (\"Username\", \"Password\", \"AccountType\") values (?,?,true);";
 	String getKeyID = "select \"KeyID\" from \"BankApplication\".UserAuth where \"Username\" = ?;";
 	String EnterCustomerDetails = "insert into \"BankApplication\".Customers (\"KeyID\", \"FirstName\", \"LastName\", \"Email\", \"Address\",\"DateCreated\") "+
 								  "values (?,?,?,?,?,?)";
-	/*
-	*/
-	
 	// public constructor method
 	public UserAuthenticationDAO(String username, String password) {
 		this.Username = username;
@@ -41,12 +37,10 @@ public class UserAuthenticationDAO {
 		// tries the SQL query
 		try {	
 			PreparedStatement prepStatement = conn.prepareStatement(this.QueryLogin);
-			prepStatement.setString(1, this.Username);
-			// System.out.println("Prepared String: " + prepStatement);	printing out the SQL QUERY			
+			prepStatement.setString(1, this.Username);		
 			// Results are gathered after the Query is executed
 			ResultSet results = prepStatement.executeQuery();				
 			User TestUser = new User(); // The TestUser is a temporary object that stores the data for the queried username
-			// calling first() or next() will take us to the first row
 			while(results.next()) {			 
 				TestUser.setKeyID(results.getInt("KeyID"));
 				TestUser.setUsername(results.getString("Username"));
@@ -66,7 +60,7 @@ public class UserAuthenticationDAO {
 			}
 		// if the SQL query doesn't work then show the exception		
 		}catch (SQLException e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 			System.out.println("SQL Exception e");
 			return false;
 		}	
@@ -85,7 +79,7 @@ public class UserAuthenticationDAO {
 			prepStatement.execute();
 			return true;
 		}catch (SQLException e) {
-//			e.printStackTrace();
+			//e.printStackTrace();
 			System.out.println("Error: Username with account already exists.");
 			return false;
 		}
@@ -142,7 +136,6 @@ public class UserAuthenticationDAO {
 			return false;
 		}
 	}
-	
 	public ConnectionUtility getCu() {
 		return cu;
 	}
@@ -167,5 +160,4 @@ public class UserAuthenticationDAO {
 	public void setCurrentUser(User currentUser) {
 		CurrentUser = currentUser;
 	}
-	
 }

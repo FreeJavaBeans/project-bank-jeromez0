@@ -30,7 +30,9 @@ public class UserInterfaceCustomer {
 					this.customerDAO.ApplyBankAccount(startingBal);
 					break;
 				case 'B':
-					System.out.println("Still under construction");
+					System.out.println("Please enter the Account ID of the proper account to view the balance.");
+					int AccountNum = scanner.nextInt();
+					this.customerDAO.ViewSpecificBalance(AccountNum);
 					break;
 				case 'C':
 					System.out.println("Still under construction");
@@ -43,12 +45,9 @@ public class UserInterfaceCustomer {
 					break;
 				case 'F':
 					System.out.println("Still under construction");
-					break;
-				case 'G':
-					System.out.println("Still under construction");
-				case 'H': 
+				case 'G': 
 					customerDAO.ShowCustomerDetails();
-				case 'Q':
+				case 'H':
 					break;
 				default:
 					System.out.println("Invalid option; please try again");
@@ -63,13 +62,12 @@ public class UserInterfaceCustomer {
 	private void CustomerOptions() {
 		System.out.println("****Customer Screen****");
 		System.out.println("Press 'A' to Apply for new bank account");
-		System.out.println("Press 'B' to View balances for all accounts");
-		System.out.println("Press 'C' to View balances for a specific account");
-		System.out.println("Press 'D' to Make a withdrawal for a specific account");
-		System.out.println("Press 'E' to make a deposit for a specific account");
-		System.out.println("Press 'F' to post a money transfer to a specific account");
-		System.out.println("Press 'G' to view and/or accept pending money transfers");
-		System.out.println("Press 'H' to view current user details");
+		System.out.println("Press 'B' to View balances for a specific account");
+		System.out.println("Press 'C' to Make a withdrawal for a specific account");
+		System.out.println("Press 'D' to make a deposit for a specific account");
+		System.out.println("Press 'E' to post a money transfer to a specific account");
+		System.out.println("Press 'F' to view and/or accept pending money transfers");
+		System.out.println("Press 'G' to view current user details");
 		System.out.println("Press 'Q' to Logout\n");
 	}
 }

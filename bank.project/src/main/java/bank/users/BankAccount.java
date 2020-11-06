@@ -7,13 +7,15 @@ public class BankAccount {
 	String RoutingID;
 	String Balance;
 	boolean Approval;
+	String DateCreated;
 	
-	public BankAccount(int KeyID, String AccountID, String RoutingID, String Balance, boolean Approval) {
+	public BankAccount(int KeyID, String AccountID, String RoutingID, String Balance, boolean Approval, String DateCreated) {
 		this.KeyID = KeyID;
 		this.AccountID = AccountID;
 		this.RoutingID = RoutingID;
 		this.Balance = Balance;
 		this.Approval = Approval;
+		this.DateCreated = DateCreated;
 	}
 	
 	public int getKeyID() {

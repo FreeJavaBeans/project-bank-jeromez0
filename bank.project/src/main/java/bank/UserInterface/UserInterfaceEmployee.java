@@ -38,7 +38,7 @@ public class UserInterfaceEmployee {
 	private void EmployeeOptions() {
 		System.out.println("****Employee Screen****");
 		System.out.println("Press 'A' to View Bank Accounts that are pending approval");
-		System.out.println("Press 'B' to View balances for a specific account");
+		System.out.println("Press 'B' to View Bank Accounts for a specific customer");
 		System.out.println("Press 'C' to View log of all transcations");
 		System.out.println("Press 'Q' to Logout\n");
 	}
