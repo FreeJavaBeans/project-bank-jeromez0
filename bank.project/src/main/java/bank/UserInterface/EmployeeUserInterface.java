@@ -5,6 +5,8 @@ import bank.resources.EmployeeDAO;
 
 public class EmployeeUserInterface {
 	
+	EmployeeDAO EmpServices = new EmployeeDAO();
+	
 	public void EmployeeMenu() {
 		Scanner scanner = new Scanner(System.in);
 		char option = '\0';
@@ -15,13 +17,18 @@ public class EmployeeUserInterface {
 			
 			switch(option) {
 				case 'A':
-					System.out.println("Still under construction");
+					EmpServices.viewPendingAccounts();
+					System.out.println("Please input AccountID of account you would like to approve: ");
+					int acctID = scanner.nextInt();
+					EmpServices.approvePendingAccounts(acctID);
 					break;
 				case 'B':
-					System.out.println("Still under construction");
+					System.out.println("Please input KeyID of customer bank accounts you would like to view: ");
+					int key = scanner.nextInt();
+					EmpServices.viewCustomerAccounts(key);
 					break;
 				case 'C':
-					System.out.println("Still under construction");
+					EmpServices.viewTransactions();
 					break;
 				case 'Q':
 					break;

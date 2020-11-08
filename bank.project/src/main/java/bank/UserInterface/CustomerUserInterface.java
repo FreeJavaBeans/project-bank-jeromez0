@@ -66,8 +66,6 @@ public class CustomerUserInterface {
 					break;
 				case 'G': 
 					customerDAO.ShowCustomerDetails();
-				case 'H':
-					break;
 				default:
 					System.out.println("Invalid option; please try again");
 					break;

@@ -52,3 +52,7 @@ update moneytransfers set "Approval" = true,"DateApproved" = '11/08/2020' where 
 
 select * from moneytransfers;
 select * from bankaccounts;
+
+
+select * from bankaccounts where "Approval" = false;
+
