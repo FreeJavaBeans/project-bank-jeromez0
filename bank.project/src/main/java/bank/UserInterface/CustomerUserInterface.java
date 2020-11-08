@@ -59,7 +59,11 @@ public class CustomerUserInterface {
 					this.customerDAO.PostMoneyTransfer(this.KeyID, AccountNum3, AccountNum4, transferAmount);
 					break;
 				case 'F':
-					System.out.println("Still under construction");
+					this.customerDAO.ViewMoneyTransfers();
+					System.out.println("Please enter the Transaction ID of a money transfer received that you would like to approve: ");
+					int transactID = scanner.nextInt();
+					this.customerDAO.AcceptMoneyTransfer(transactID);
+					break;
 				case 'G': 
 					customerDAO.ShowCustomerDetails();
 				case 'H':
