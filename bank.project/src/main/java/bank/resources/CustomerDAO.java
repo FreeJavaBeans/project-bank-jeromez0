@@ -52,6 +52,7 @@ public class CustomerDAO {
 			System.out.println("SQL Exception e");
 		}	
 	}
+	
 	// Apply for Bank Account method
 	public boolean ApplyBankAccount(float startingBalance) {
 		Connection conn = cu.getConnection();
@@ -88,6 +89,7 @@ public class CustomerDAO {
 		System.out.println("****New Account Successfully Created****\n");
 		return true;
 	}
+	
 	// Viewing a specific account balance
 	public void ViewSpecificBalance(int AccountNum) {
 		// get a connection
@@ -114,10 +116,14 @@ public class CustomerDAO {
 			System.out.println("Invalid Authorization or Account ID");
 		}	
 	}
+	
 	// Making a deposit
 	public void MakeDeposit(int AccountNum, float depositAmount) {
 		float currentBalance = this.GetBal(AccountNum);
 		float newBalance = currentBalance + depositAmount;
+		if (depositAmount < 0) {
+			System.out.println("Invalid Deposit. Can only make deposits of a positive amount.");
+		}
 		// get a connection
 		Connection conn = cu.getConnection(); 		
 		try {	
@@ -137,6 +143,7 @@ public class CustomerDAO {
 		System.out.println("New Balance: " + newBalance);
 		System.out.println("**************************\n");
 	}
+	
 	// Making a withdrawal
 	public void MakeWithdrawal(int AccountNum, float withdrawalAmount) {
 		float currentBalance = this.GetBal(AccountNum);
@@ -145,6 +152,10 @@ public class CustomerDAO {
 			System.out.println("Invalid Withdrawal. Completing transaction would leave your bank account with less than $0.00.");
 			return;
 		}
+		if (withdrawalAmount < 0) {
+			System.out.println("Invalid Withdrawal. Can only withdraw a positive amount.");
+		}
+			
 		// get a connection
 		Connection conn = cu.getConnection(); 		
 		try {	
@@ -164,14 +175,18 @@ public class CustomerDAO {
 		System.out.println("New Balance: " + newBalance);
 		System.out.println("**************************\n");
 	}
+	
 	// Posting a money transfer
 	public void PostMoneyTransfer() {
 		
 	}
+	
 	// Viewing pending money transfers
 	public void ViewMoneyTransfers() {
 		
 	}
+	
+	
 	// Show customer details
 	public void ShowCustomerDetails() {
 		System.out.println("****Customer Details****\n");

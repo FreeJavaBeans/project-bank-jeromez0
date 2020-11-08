@@ -16,6 +16,7 @@ drop table if exists Employees;
 drop table if exists BankAccounts;
 drop table if exists Customers;
 drop table if exists UserAuth;
+drop table if exists MoneyTransfers;
 
 create table UserAuth
 (
@@ -61,6 +62,17 @@ create table BankAccounts
 		references Customers ("KeyID")
 );
 
+create table MoneyTransfers
+(
+	"TransactionID" serial primary key,
+	"SenderAccountID" int not null,
+	"RecipientAccountID" int not null,
+	"Amount" numeric(10,2) not null,
+	"Approval" boolean not null,
+	"DateCreated" timestamp not null,
+	"DateApproved" timestamp
+);
+
 create unique index Unique_Emails on Customers("Email");
 create unique index Unique_Account_ID on BankAccounts("AccountID");
 create unique index Unique_Usernames on UserAuth("Username");
@@ -90,7 +102,12 @@ insert into UserAuth ("Username","Password", "AccountType") values ('Customer4',
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (8, 'Janet', 'Mason', 'JanetMason@yahoo.com','104 Awesome Drive','02/17/1995');
 
 --Bank Accounts
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 123456789, 123456789, 1034.34, true, '09/15/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 111111111, 123456789, 1034.34, true, '09/15/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (6, 222222222, 123456789, 10000.50, true, '11/07/2020');
+
+
+--Money Transfers
+insert into MoneyTransfers("SenderAccountID", "RecipientAccountID", "Amount", "Approval", "DateCreated") values (111111111, 222222222, 1000.23, false, '11/08/2020');
 
 
 -- testing
@@ -98,6 +115,7 @@ select * from UserAuth;
 select * from Employees;
 select * from Customers;
 select * from BankAccounts;
+select * from MoneyTransfers;
 
 
 
