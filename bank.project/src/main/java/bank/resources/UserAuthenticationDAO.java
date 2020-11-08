@@ -2,11 +2,12 @@ package bank.resources;
 
 import java.sql.Connection;
 import java.sql.Timestamp;
+
+import bank.models.User;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import bank.users.User;
 
 public class UserAuthenticationDAO {
 	

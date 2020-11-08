@@ -13,10 +13,11 @@
 set schema 'BankApplication';
 
 drop table if exists Employees;
+drop table if exists MoneyTransfers;
 drop table if exists BankAccounts;
 drop table if exists Customers;
 drop table if exists UserAuth;
-drop table if exists MoneyTransfers;
+
 
 create table UserAuth
 (
@@ -53,7 +54,7 @@ create table Customers
 create table BankAccounts
 (	
 	"KeyID" int not null,
-	"AccountID" int not null,
+	"AccountID" int not null primary key,
 	"RoutingID" varchar(16) not null,
 	"Balance" numeric(10,2) not null,
 	"Approval" boolean,
@@ -64,13 +65,18 @@ create table BankAccounts
 
 create table MoneyTransfers
 (
+	"KeyID" int not null,
 	"TransactionID" serial primary key,
-	"SenderAccountID" int not null,
+	"AccountID" int not null,
 	"RecipientAccountID" int not null,
 	"Amount" numeric(10,2) not null,
 	"Approval" boolean not null,
 	"DateCreated" timestamp not null,
-	"DateApproved" timestamp
+	"DateApproved" timestamp,
+	foreign key ("KeyID")
+		references Customers ("KeyID"),
+	foreign key ("AccountID")
+		references BankAccounts ("AccountID")
 );
 
 create unique index Unique_Emails on Customers("Email");
@@ -102,12 +108,13 @@ insert into UserAuth ("Username","Password", "AccountType") values ('Customer4',
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (8, 'Janet', 'Mason', 'JanetMason@yahoo.com','104 Awesome Drive','02/17/1995');
 
 --Bank Accounts
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 111111111, 123456789, 1034.34, true, '09/15/2020');
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (6, 222222222, 123456789, 10000.50, true, '11/07/2020');
-
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 555555555, 123456789, 10000.99, true, '09/15/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (6, 666666666, 123456789, 20000.99, true, '11/07/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (7, 777777777, 123456789, 30000.99, true, '11/07/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (8, 888888888, 123456789, 40000.99, true, '11/07/2020');
 
 --Money Transfers
-insert into MoneyTransfers("SenderAccountID", "RecipientAccountID", "Amount", "Approval", "DateCreated") values (111111111, 222222222, 1000.23, false, '11/08/2020');
+insert into MoneyTransfers("KeyID", "AccountID", "RecipientAccountID", "Amount", "Approval", "DateCreated") values (5, 555555555, 222222222, 1000.23, false, '11/08/2020');
 
 
 -- testing

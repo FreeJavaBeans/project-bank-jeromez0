@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Random;
 
-import bank.users.Customer;
-import bank.users.User;
+import bank.models.Customer;
+import bank.models.User;
 
 public class CustomerDAO {
 	
@@ -27,6 +27,9 @@ public class CustomerDAO {
 	String makeDeposit = "Update \"BankApplication\".BankAccounts set \"Balance\" = ? where \"KeyID\" = ? and \"AccountID\" = ?";
 	String makeWithdrawal = "Update \"BankApplication\".BankAccounts set \"Balance\" = ? where \"KeyID\" = ? and \"AccountID\" = ?";
 	String findBalance = "select \"Balance\" from \"BankApplication\".BankAccounts where \"KeyID\" = ? and \"AccountID\" = ?";
+	String postMoneyTransfer = "insert into \"BankApplication\".MoneyTransfers (\"KeyID\", \"AccountID\", \"RecipientAccountID\", \"Amount\", \"Approval\", \"DateCreated\") " +
+							   "values (?,?,?,?,false,?)";
+	String viewMoneyTransfers = "select * from \"BankApplication\".MoneyTransfers where \"AccountID\" = ?";
 	//
 	// Primary constructor method
 	public CustomerDAO(int KeyID, User current) {
@@ -175,18 +178,72 @@ public class CustomerDAO {
 		System.out.println("New Balance: " + newBalance);
 		System.out.println("**************************\n");
 	}
-	
+	/////////////////////////////////////////////
 	// Posting a money transfer
-	public void PostMoneyTransfer() {
-		
+	// String postMoneyTransfer = "insert into \"BankApplication\".MoneyTransfers (\"AccountID\", \"RecipientAccountID\", \"Amount\", \"Approval\", \"DateCreated\") " +
+	//	   "values (?,?,?,false,?)";
+	/////////////////////////////////////////////
+	public boolean PostMoneyTransfer(int KeyID, int SenderAccountID, int RecipientAccountID, float Amount) {
+		Connection conn = cu.getConnection();
+		// generate a random accounting number
+		// generate a timestamp
+		Date date = new Date();  
+		Timestamp ts=new Timestamp(date.getTime());  
+		String time = ts.toString();
+		if (Amount < 0) {
+			System.out.println("Cannot post a transfer of less than $0.00.");
+			return false;
+		}	
+		try {		
+			PreparedStatement prepStatement = conn.prepareStatement(this.postMoneyTransfer);
+			prepStatement.setInt(1, KeyID);
+			prepStatement.setInt(2, SenderAccountID);
+			prepStatement.setInt(3, RecipientAccountID);
+			prepStatement.setFloat(4, Amount);
+			prepStatement.setTimestamp(5, ts);
+			prepStatement.execute();			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error: Money Transfer failed.");
+			return false;
+		}
+		System.out.println("\n**********");
+		System.out.println("Sender Account Number: " + SenderAccountID);
+		System.out.println("Recipient Account ID: " + RecipientAccountID);
+		System.out.println("Amount: " + Amount);
+		System.out.println("Date Created: " + time);		
+		System.out.println("Approval Status: pending");
+		System.out.println("****Money Transfer Posted Successfully****\n");
+		return true;
 	}
-	
+	////////////////////////////////////////////
 	// Viewing pending money transfers
 	public void ViewMoneyTransfers() {
+		//  get a connection
+		Connection conn = cu.getConnection();
+		try {	
+			PreparedStatement prepStatement = conn.prepareStatement(this.viewAccountBalance);
+			prepStatement.setInt(1, this.KeyID);
+			prepStatement.setInt(2, AccountNum);
+			ResultSet results = prepStatement.executeQuery();				
+			while(results.next()) {			 
+				System.out.println("\n****Viewing Money Transfers****");
+				System.out.println("Account ID: " + AccountNum);
+				System.out.println("Routing ID: " + results.getString("RoutingID"));
+				Timestamp obj = (results.getTimestamp("DateCreated"));
+				String time = obj.toString();
+				System.out.println("Date created: " + time);
+				System.out.println("Current Balance: " + results.getFloat("Balance"));
+				System.out.println("Approval Status: " + results.getBoolean("Approval"));
+				System.out.println("**************************\n");
+			}
+		// if the SQL query doesn't work then show the exception		
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Invalid Authorization or Account ID");
+		}	
 		
 	}
-	
-	
 	// Show customer details
 	public void ShowCustomerDetails() {
 		System.out.println("****Customer Details****\n");

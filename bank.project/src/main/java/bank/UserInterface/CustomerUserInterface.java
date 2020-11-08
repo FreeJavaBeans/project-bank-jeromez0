@@ -1,8 +1,9 @@
 package bank.UserInterface;
 
 import java.util.Scanner;
+
+import bank.models.User;
 import bank.resources.CustomerDAO;
-import bank.users.User;
 
 public class CustomerUserInterface {
 	
@@ -49,7 +50,13 @@ public class CustomerUserInterface {
 					this.customerDAO.MakeWithdrawal(AccountNum2, withdrawalAmount);
 					break;
 				case 'E':
-					System.out.println("Still under construction");
+					System.out.println("Please enter the Account ID from which you would like to transfer money: ");
+					int AccountNum3 = scanner.nextInt();
+					System.out.println("Please enter the Account ID which you would like to send money: ");
+					int AccountNum4 = scanner.nextInt();
+					System.out.println("Please enter the amount which you would like to transfer: ");
+					float transferAmount = scanner.nextFloat();
+					this.customerDAO.PostMoneyTransfer(this.KeyID, AccountNum3, AccountNum4, transferAmount);
 					break;
 				case 'F':
 					System.out.println("Still under construction");

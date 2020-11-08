@@ -1,4 +1,4 @@
-package bank.users;
+package bank.models;
 
 public class Employee extends User{
 	
