@@ -88,23 +88,23 @@ create unique index Unique_Usernames on UserAuth("Username");
 ***************/
 
 -- Employees
-insert into UserAuth ("Username","Password", "AccountType") values ('Employee1', 'password', false);
+insert into UserAuth ("Username","Password", "AccountType") values ('employee1', 'password', false);
 insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (1, 'John', 'Doe', 'John.Doe@BankApp.com','100 Cool Lane', '03/23/1968');
-insert into UserAuth ("Username","Password", "AccountType") values ('Employee2', 'password', false);
+insert into UserAuth ("Username","Password", "AccountType") values ('employee2', 'password', false);
 insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (2, 'Jon', 'Roe', 'Jon.Roe@BankApp.com','101 Cool Lane','04/23/1988');
-insert into UserAuth ("Username","Password", "AccountType") values ('Employee3', 'password', false);
+insert into UserAuth ("Username","Password", "AccountType") values ('employee3', 'password', false);
 insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (3, 'Jane', 'Doe', 'Jane.Doe@BankApp.com','102 Cool Lane', '06/14/1989');
-insert into UserAuth ("Username","Password", "AccountType") values ('Employee4', 'password', false);
+insert into UserAuth ("Username","Password", "AccountType") values ('employee4', 'password', false);
 insert into Employees ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (4, 'Janice', 'Rogriguez', 'Janice.Rodriguez@BankApp.com','104 Awesome Lane','02/14/1998');
 
 -- Customers
-insert into UserAuth ("Username","Password", "AccountType") values ('Customer1', 'password', true);
+insert into UserAuth ("Username","Password", "AccountType") values ('customer1', 'password', true);
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (5, 'Maurice', 'Johnson', 'MauriceJohnson@google.com','100 Cool Street', '03/23/1968');
-insert into UserAuth ("Username","Password", "AccountType") values ('Customer2', 'password', true);
+insert into UserAuth ("Username","Password", "AccountType") values ('customer2', 'password', true);
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (6, 'Hope', 'Marshall', 'hope_Marshall@yahoo.com','101 Cool Avenue','08/23/1978');
-insert into UserAuth ("Username","Password", "AccountType") values ('Customer3', 'password', true);
+insert into UserAuth ("Username","Password", "AccountType") values ('customer3', 'password', true);
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (7, 'Marissa', 'Lawson', 'marissa_lawson@gmail.com','104 Pool Avenue', '05/14/1989');
-insert into UserAuth ("Username","Password", "AccountType") values ('Customer4', 'password', true);
+insert into UserAuth ("Username","Password", "AccountType") values ('customer4', 'password', true);
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (8, 'Janet', 'Mason', 'JanetMason@yahoo.com','104 Awesome Drive','02/17/1995');
 
 --Bank Accounts
@@ -116,7 +116,7 @@ insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approva
 insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 555500000, 123456789, 40000.99, false, '11/07/2020');
 insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (6, 666600000, 123456789, 40000.99, false, '11/07/2020');
 insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (7, 777700000, 123456789, 40000.99, false, '11/07/2020');
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (8, 888800000, 123456789, 40000.99, false, '11/07/2020');public boolean NewCustomerAccount(String firstname, String lastname, String email, String address, Timestamp ts) 
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (8, 888800000, 123456789, 40000.99, false, '11/07/2020');
 
 --Money Transfers
 insert into MoneyTransfers("KeyID", "AccountID", "RecipientAccountID", "Amount", "Approval", "DateCreated") values (5, 555555555, 666666666, 1000.23, false, '11/08/2020');

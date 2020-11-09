@@ -27,7 +27,6 @@ public class BankAccount {
 	}
 	
 	public BankAccount AccountSetter(ResultSet results, BankAccount Account) {
-	
 		try {	
 			Account.setKeyID(results.getInt("KeyID"));
 			Account.setAccountID(results.getInt("AccountID"));
