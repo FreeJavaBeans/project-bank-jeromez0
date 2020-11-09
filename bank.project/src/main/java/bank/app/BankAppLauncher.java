@@ -5,9 +5,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import bank.resources.ConnectionUtility;
-import bank.resources.UserAuthenticationDAO;
-
-import bank.UserInterface.*;
+import bank.resources.LoginDAO;
+import bank.services.*;
 
 public class BankAppLauncher {
 	

@@ -56,3 +56,5 @@ select * from bankaccounts;
 
 select * from bankaccounts where "Approval" = false;
 
+update bankaccounts set "Approval" = true where "AccountID" = 4;
+

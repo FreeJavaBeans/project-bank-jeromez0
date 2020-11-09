@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserAuthenticationDAO {
+public class LoginDAO {
 	
 	private ConnectionUtility cu = ConnectionUtility.getConnectionUtility();
 	String Username;
@@ -22,7 +22,7 @@ public class UserAuthenticationDAO {
 	String EnterCustomerDetails = "insert into \"BankApplication\".Customers (\"KeyID\", \"FirstName\", \"LastName\", \"Email\", \"Address\",\"DateCreated\") "+
 								  "values (?,?,?,?,?,?)";
 	// public constructor method
-	public UserAuthenticationDAO(String username, String password) {
+	public LoginDAO(String username, String password) {
 		this.Username = username;
 		this.Password = password;
 	}

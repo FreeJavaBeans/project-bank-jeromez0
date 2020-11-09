@@ -1,10 +1,10 @@
-package bank.UserInterface;
+package bank.services;
 
 import java.util.Scanner;
 import java.util.Date;
 import java.sql.Timestamp;
 
-import bank.resources.UserAuthenticationDAO;
+import bank.resources.LoginDAO;
 
 public class LoginUserInterface {
 	// UserInterface for the customer as well as the employee are created
@@ -28,7 +28,7 @@ public class LoginUserInterface {
 					System.out.println("Enter a password:");
 					String password = scanner.next();								
 					// Creating new user session
-					UserAuthenticationDAO Login = new UserAuthenticationDAO(username,password);
+					LoginDAO Login = new LoginDAO(username,password);
 					// Testing for User Authentication
 					boolean UserAuth = Login.UserAuthentication();					
 					// If Login Successful and account type is customer then return customer menu
@@ -52,7 +52,7 @@ public class LoginUserInterface {
 					System.out.println("Enter a password:");
 					String password1 = scanner.next();
 					// creating new user authentication session
-					UserAuthenticationDAO CreateAccount = new UserAuthenticationDAO(username1,password1);
+					LoginDAO CreateAccount = new LoginDAO(username1,password1);
 					// if the user account is created successfully then add customer details
 					if (CreateAccount.UserAuthNewAccount(username1, password1) == true) { 
 						NewCustomerAccount(scanner, CreateAccount);
@@ -79,7 +79,7 @@ public class LoginUserInterface {
 		System.out.println("Press 'Q' to exit\n");
 	}
 	// private method to accept user input for the Create New Customer Account form
-	private void NewCustomerAccount(Scanner scanner, UserAuthenticationDAO CreateAccount) {
+	private void NewCustomerAccount(Scanner scanner, LoginDAO CreateAccount) {
 		System.out.println("All fields required");
 		System.out.println("Enter your first name:");
 		String firstname= scanner.next();

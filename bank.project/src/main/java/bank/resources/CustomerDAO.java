@@ -38,7 +38,7 @@ public class CustomerDAO {
 	String gatherInfo = "select \"AccountID\", \"RecipientAccountID\", \"Amount\" from \"BankApplication\".MoneyTransfers where \"TransactionID\" = ? and \"RecipientAccountID\" in " + 
 							"(select \"AccountID\" from \"BankApplication\".bankaccounts where \"KeyID\" = ? and \"Approval\" = true)";
 	String makeTrans = "Update \"BankApplication\".bankaccounts set \"Balance\" = ? where \"AccountID\" = ?";
-	String updateTrans = "update \"BankApplication\".moneytransfers set \"Approval\" = true, \"DateApproved\" = ? where \"TransactionID\" = ? and \"RecipientAccountID\" in " +
+	String updateTransfer = "update \"BankApplication\".moneytransfers set \"Approval\" = true, \"DateApproved\" = ? where \"TransactionID\" = ? and \"RecipientAccountID\" in " +
 						 "(select \"AccountID\" from \"BankApplication\".bankaccounts where \"KeyID\" = ?)";
 	
 	//
@@ -281,7 +281,7 @@ public class CustomerDAO {
 	//	String gatherInfo = "select \"AccountID\", \"RecipientAccountID\", \"Amount\" from \"BankApplication\".MoneyTransfers where \"TransactionID\" = ? and \"RecipientAccountID\" in " + 
 	// 		"(select \"AccountID\" from \"Bank.Application\".bankaccounts where \"KeyID\" = ? and \"Approval\" = true";
 	//	String makeTrans = "Update \"BankApplication\".bankaccounts set \"Balance\" = ? where \"AccountID\" = ?";
-	//	String updateTrans = "update \"BankApplication\".moneytransfers set \"Approval\" = true, \"DateApproved\" = ? where \"TransactionID\" = ? and \"RecipientAccountID\" in " +
+	//	String updateTransfer = "update \"BankApplication\".moneytransfers set \"Approval\" = true, \"DateApproved\" = ? where \"TransactionID\" = ? and \"RecipientAccountID\" in " +
 	//	 "(select \"AccountID\" from \"BankApplication\".bankaccounts where \"KeyID\" = ?";
 	////////////////////////////////////
 	public boolean AcceptMoneyTransfer(int transactID) {
@@ -301,7 +301,7 @@ public class CustomerDAO {
 				double currBal = this.GetBal(Recipient);
 				this.MakeTrans(Amount,Recipient);
 				this.MakeTrans((Amount * -1), Sender);
-				this.updateTrans(transactID);
+				this.updateTransfer(transactID);
 				System.out.println("\n****Transaction Completed****");
 				System.out.println("Previous balance: " + currBal);
 				System.out.println("New balance: " + this.GetBal(Recipient));
@@ -332,12 +332,12 @@ public class CustomerDAO {
 		return true;
 	}
 	
-	private void updateTrans(int TransID) {
+	private void updateTransfer(int TransID) {
 		Connection conn = cu.getConnection();
 		Date date = new Date();  
 		Timestamp ts=new Timestamp(date.getTime());  
 		try {
-			PreparedStatement prepStatement = conn.prepareStatement(this.updateTrans);
+			PreparedStatement prepStatement = conn.prepareStatement(this.updateTransfer);
 			prepStatement.setTimestamp(1, ts);
 			prepStatement.setInt(2, TransID);
 			prepStatement.setInt(3, this.KeyID);

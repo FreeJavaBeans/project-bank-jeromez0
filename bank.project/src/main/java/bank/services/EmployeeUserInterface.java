@@ -1,4 +1,4 @@
-package bank.UserInterface;
+package bank.services;
 
 import java.util.Scanner;
 import bank.resources.EmployeeDAO;
