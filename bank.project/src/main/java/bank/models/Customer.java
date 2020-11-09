@@ -1,5 +1,9 @@
 package bank.models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+
 public class Customer extends User{
 	
 	int KeyID;
@@ -15,6 +19,33 @@ public class Customer extends User{
 	public Customer() {
 		super();
 	}
+	
+	public Customer CustomerSetter(ResultSet results, Customer CurrentCustomer) {
+		try {	
+			CurrentCustomer.setKeyID(results.getInt("KeyID"));
+			CurrentCustomer.setFirstName(results.getString("FirstName"));
+			CurrentCustomer.setLastName(results.getString("LastName"));
+			CurrentCustomer.setEmail(results.getString("Email"));
+			CurrentCustomer.setAddress(results.getString("Address"));
+			Timestamp obj = (results.getTimestamp("DateCreated"));
+			String time = obj.toString();
+			CurrentCustomer.setDateCreated(time);							
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return CurrentCustomer;		
+	}
+	
+	public void showCustomerDetails(Customer CurrentCustomer, User CurrentUser) {
+		System.out.println("****Customer Details****\n");
+		System.out.println("Username: "  + CurrentUser.getUsername());
+		System.out.println("First name: " + CurrentCustomer.getFirstName());
+		System.out.println("Last name: " + CurrentCustomer.getLastName());
+		System.out.println("Email address: " + CurrentCustomer.getEmail());
+		System.out.println("Home address: " + CurrentCustomer.getAddress());
+		System.out.println("Date customer account created: " + CurrentCustomer.getDateCreated() + "\n");
+	}
+
 	
 	// getter and setter methods below
 	

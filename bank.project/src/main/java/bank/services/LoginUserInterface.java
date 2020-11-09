@@ -44,7 +44,7 @@ public class LoginUserInterface {
 	private void LoginMethod(Scanner scanner) {
 		System.out.println("\n*****Log In*****");
 		System.out.print("Enter a username: ");		
-		String username = scanner.next();
+		String username = scanner.next().toLowerCase();
 		System.out.print("Enter a password: ");
 		String password = scanner.next();								
 		// Creating new user session

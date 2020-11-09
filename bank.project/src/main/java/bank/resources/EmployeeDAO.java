@@ -16,7 +16,7 @@ public class EmployeeDAO implements EmployeeRepository{
 	public EmployeeDAO() {
 		super();
 	}
-	
+	// view pending accounts
 	public void viewPendingAccounts() {
 		String sqlQuery = "select * from \"BankApplication\".bankaccounts where \"Approval\" = false";
 		Connection conn = cu.getConnection();
@@ -33,7 +33,7 @@ public class EmployeeDAO implements EmployeeRepository{
 			System.out.println("Invalid Authorization or Account ID");
 		}	
 	}
-
+	// approve a pending account
 	public boolean approvePendingAccounts(int AccountID) {
 		String sqlUpdate = "update \"BankApplication\".bankaccounts set \"Approval\" = true where \"AccountID\" = ?";
 		Connection conn = cu.getConnection();
@@ -49,7 +49,7 @@ public class EmployeeDAO implements EmployeeRepository{
 		}			
 		return true;
 	}
-		
+	// view customer bank accounts
 	public void viewCustomerAccounts(int KeyID) {
 		String sqlQuery = "select * from \"BankApplication\".bankaccounts where \"KeyID\" = ?";
 		Connection conn = cu.getConnection();
