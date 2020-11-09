@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import bank.resources.ConnectionUtility;
 import bank.resources.LoginDAO;
 import bank.services.*;
+import bank.util.ConnectionUtility;
 
 public class BankAppLauncher {
 	

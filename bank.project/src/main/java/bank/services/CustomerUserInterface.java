@@ -4,11 +4,13 @@ import java.util.Scanner;
 
 import bank.models.User;
 import bank.resources.CustomerDAO;
+import bank.util.ScannerUtility;
 
 public class CustomerUserInterface {
 	
 	int KeyID;
 	CustomerDAO customerDAO;
+	Scanner scanner = ScannerUtility.getScanner();
 	
 	CustomerUserInterface(int keyID, User current) {
 		this.KeyID = keyID;
@@ -16,7 +18,6 @@ public class CustomerUserInterface {
 	}
 	
 	public void CustomerMenu() {
-		Scanner scanner = new Scanner(System.in);
 		char option = '\0';
 		do {
 			this.CustomerOptions();
@@ -66,6 +67,7 @@ public class CustomerUserInterface {
 					break;
 				case 'G': 
 					customerDAO.ShowCustomerDetails();
+					break;
 				default:
 					System.out.println("Invalid option; please try again");
 					break;

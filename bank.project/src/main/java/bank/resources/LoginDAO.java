@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Timestamp;
 
 import bank.models.User;
+import bank.util.ConnectionUtility;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,6 @@ public class LoginDAO {
 	String Password;
 	User CurrentUser;
 	// SQL Queries 
-	String QueryLogin = "select * from \"BankApplication\".UserAuth where \"Username\" = ?;";
 	String CreateUser = "insert into \"BankApplication\".UserAuth (\"Username\", \"Password\", \"AccountType\") values (?,?,true);";
 	String getKeyID = "select \"KeyID\" from \"BankApplication\".UserAuth where \"Username\" = ?;";
 	String EnterCustomerDetails = "insert into \"BankApplication\".Customers (\"KeyID\", \"FirstName\", \"LastName\", \"Email\", \"Address\",\"DateCreated\") "+
@@ -34,10 +34,10 @@ public class LoginDAO {
 		System.out.println("\n*****Authenticating*****");
 		System.out.println("........................");
 		System.out.println("........................");
-		System.out.println("........................");
 		// tries the SQL query
+		String SQLLogin = "select * from \"BankApplication\".UserAuth where \"Username\" = ?;";
 		try {	
-			PreparedStatement prepStatement = conn.prepareStatement(this.QueryLogin);
+			PreparedStatement prepStatement = conn.prepareStatement(SQLLogin);
 			prepStatement.setString(1, this.Username);		
 			// Results are gathered after the Query is executed
 			ResultSet results = prepStatement.executeQuery();				

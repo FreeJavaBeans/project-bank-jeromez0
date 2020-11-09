@@ -1,7 +1,8 @@
 package bank.services;
 
-import java.util.Scanner;
+import bank.util.ScannerUtility;
 import java.util.Date;
+import java.util.Scanner;
 import java.sql.Timestamp;
 
 import bank.resources.LoginDAO;
@@ -9,13 +10,13 @@ import bank.resources.LoginDAO;
 public class LoginUserInterface {
 	// UserInterface for the customer as well as the employee are created
 	EmployeeUserInterface UIEmployee = new EmployeeUserInterface();
+	Scanner scanner = ScannerUtility.getScanner();
 	
 	// main login menu
 	public void LoginMenu() {
 		
 		char option = '\0';
 		do {
-			Scanner scanner = new Scanner(System.in);
 			this.LoginOptions();
 			System.out.println("Enter an option: ");
 			option = scanner.next().charAt(0);		

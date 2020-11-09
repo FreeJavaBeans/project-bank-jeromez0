@@ -12,6 +12,7 @@ import java.util.List;
 
 import bank.models.Customer;
 import bank.models.User;
+import bank.util.ConnectionUtility;
 
 public class CustomerDAO {
 	

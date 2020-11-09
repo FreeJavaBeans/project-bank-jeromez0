@@ -16,6 +16,8 @@ public class Customer extends User{
 		super();
 	}
 	
+	// getter and setter methods below
+	
 	public int getKeyID() {
 		return KeyID;
 	}

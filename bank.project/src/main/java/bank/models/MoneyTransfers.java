@@ -10,6 +10,12 @@ public class MoneyTransfers {
 	boolean Approval;
 	Timestamp DateCreated;
 	Timestamp DateApproved;
+	
+	
+	
+	
+	// getter and setter methods below ---
+	
 	public int getKeyID() {
 		return KeyID;
 	}
