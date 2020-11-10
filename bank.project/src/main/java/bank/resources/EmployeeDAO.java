@@ -71,7 +71,7 @@ public class EmployeeDAO implements EmployeeRepository{
 			e.printStackTrace();
 		}
 	}
-	
+	// view all past transactions
 	public void viewTransactions() {
 		Connection conn = cu.getConnection();
 		String getAllTransactions = "select * from \"BankApplication\".Transactions";

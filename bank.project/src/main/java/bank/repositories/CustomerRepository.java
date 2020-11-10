@@ -1,7 +1,5 @@
 package bank.repositories;
 
-import bank.models.User;
-
 public interface CustomerRepository {
 
 	public boolean ApplyBankAccount(double startingBalance);
