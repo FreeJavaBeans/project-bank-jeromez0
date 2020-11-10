@@ -1,5 +1,6 @@
 package bank.services;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import bank.models.User;
@@ -21,8 +22,8 @@ public class CustomerUserInterface {
 		char option = '\0';
 		do {
 			this.CustomerOptions();
-			System.out.println("Enter an option: ");
-			option = scanner.next().charAt(0);		
+			System.out.print("Enter an option: ");
+			option = scanner.next().toUpperCase().charAt(0);		
 			
 			switch(option) {
 				case 'A':
@@ -50,7 +51,7 @@ public class CustomerUserInterface {
 					customerDAO.ViewAllBalances();
 					break;
 				default:
-					System.out.println("Invalid option; please try again");
+					System.out.println("\n****Invalid option; please try again****\n");
 					break;
 			}
 		}while (option != 'Q');
@@ -78,52 +79,88 @@ public class CustomerUserInterface {
 	// Case A functionality, create new bank account
 	private void CreateNewBankAccount(Scanner scanner) {
 		System.out.println("****Creating new bank account****");
-		System.out.println("How much would you like to deposit as your starting balance?");
-		float startingBal = scanner.nextFloat();
-		this.customerDAO.ApplyBankAccount(startingBal);
+		System.out.print("How much would you like to deposit as your starting balance?: ");
+		try {			
+			float startingBal = scanner.nextFloat();
+			this.customerDAO.ApplyBankAccount(startingBal);
+		}catch (InputMismatchException I) {
+			System.out.println("***Invalid Input***\n");
+			scanner.next();
+			return;
+		}	
 	}
-	
 	// Case B functionality, view a specific balance
 	private void ViewBalance(Scanner scanner) {
-		System.out.println("Please enter the Account ID of the proper account to view the balance.");
-		int AccountNum = scanner.nextInt();
-		this.customerDAO.ViewSpecificBalance(AccountNum);
+		System.out.println("****Viewing Account Balance****");
+		System.out.print("Please enter the Account ID of the proper account to view the balance: ");
+		try {
+			int AccountNum = scanner.nextInt();
+			this.customerDAO.ViewSpecificBalance(AccountNum);
+		}catch (InputMismatchException I) {
+			System.out.println("***Invalid Input***\n");
+			scanner.next();
+			return;
+		}
 	}
-	
 	// Case C functionality, make a deposit
 	private void MakeDeposit(Scanner scanner) {
-		System.out.println("Please enter the Account ID of the account you wish to make a deposit: ");
-		int AccountNum = scanner.nextInt();
-		System.out.println("Please enter the amount you wish to deposit:");
-		float depositAmount = scanner.nextFloat();
-		this.customerDAO.MakeDeposit(AccountNum, depositAmount);
+		System.out.println("****Viewing Account Balance****");
+		System.out.print("Please enter the Account ID of the account you wish to make a deposit: ");
+		try {
+			int AccountNum = scanner.nextInt();
+			System.out.print("Please enter the amount you wish to deposit: ");
+			float depositAmount = scanner.nextFloat();
+			this.customerDAO.MakeDeposit(AccountNum, depositAmount);
+		}catch (InputMismatchException I) {
+			System.out.println("***Invalid Input***\n");
+			scanner.next();
+			return;
+		}
 	}
-
 	// Case D functionality, make a withdrawal
 	private void MakeWithdrawal(Scanner scanner) {
-		System.out.println("Please enter the Account ID of the account you wish to make a withdrawal: ");
-		int AccountNum = scanner.nextInt();
-		System.out.println("Please enter the amount you wish to withdraw:");
-		float withdrawalAmount = scanner.nextFloat();
-		this.customerDAO.MakeWithdrawal(AccountNum, withdrawalAmount);
+		System.out.println("****Making Withdrawal****\n");
+		System.out.print("Please enter the Account ID of the account you wish to make a withdrawal: ");
+		try {
+			int AccountNum = scanner.nextInt();
+			System.out.print("Please enter the amount you wish to withdraw:");
+			float withdrawalAmount = scanner.nextFloat();
+			this.customerDAO.MakeWithdrawal(AccountNum, withdrawalAmount);
+		}catch (InputMismatchException I) {
+			System.out.println("***Invalid Input***\n");
+			scanner.next();
+			return;
+		}
 	}
-	
 	// Case E functionality, post a money transfer
 	private void PostMoneyTransfer(Scanner scanner) {
-		System.out.println("Please enter the Account ID from which you would like to transfer money: ");
-		int AccountNum = scanner.nextInt();
-		System.out.println("Please enter the Account ID which you would like to send money: ");
-		int AccountNum1 = scanner.nextInt();
-		System.out.println("Please enter the amount which you would like to transfer: ");
-		float transferAmount = scanner.nextFloat();
-		this.customerDAO.PostMoneyTransfer(this.KeyID, AccountNum, AccountNum1, transferAmount);
+		System.out.println("****Post Money Transfer****\n");
+		System.out.print("Please enter the Account ID from which you would like to transfer money: ");
+		try {
+			int AccountNum = scanner.nextInt();
+			System.out.print("Please enter the Account ID which you would like to send money: ");
+			int AccountNum1 = scanner.nextInt();
+			System.out.print("Please enter the amount which you would like to transfer: ");
+			float transferAmount = scanner.nextFloat();
+			this.customerDAO.PostMoneyTransfer(this.KeyID, AccountNum, AccountNum1, transferAmount);
+		}catch(InputMismatchException I) {
+			System.out.println("***Invalid Input***\n");
+			scanner.next();
+			return;
+		}
 	}
-	
 	// Case F Functionality, view pending money transfers
 	private void ViewMoneyTransfers(Scanner scanner) {
+		System.out.println("****View Money Transfers****\n");
 		this.customerDAO.ViewMoneyTransfers();
-		System.out.println("Please enter the Transaction ID of a money transfer received that you would like to approve: ");
-		int transactID = scanner.nextInt();
-		this.customerDAO.AcceptMoneyTransfer(transactID);
+		try {
+			System.out.print("Please enter the Transaction ID of a money transfer received that you would like to approve: ");
+			int transactID = scanner.nextInt();
+			this.customerDAO.AcceptMoneyTransfer(transactID);
+		}catch(InputMismatchException I) {
+			System.out.println("***Invalid Input***\n");
+			scanner.next();
+			return;
+		}
 	}
 }

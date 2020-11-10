@@ -2,6 +2,8 @@ package bank.services;
 
 import bank.resources.EmployeeDAO;
 import bank.util.ScannerUtility;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EmployeeUserInterface {
@@ -40,18 +42,30 @@ public class EmployeeUserInterface {
 	// Case A functionality (view pending accounts that require approval)
 	private void EmployeeViewPendingAccounts(Scanner scanner) {
 		EmpServices.viewPendingAccounts();
-		System.out.println("Please input AccountID of account you would like to approve: ");
-		int acctID = scanner.nextInt();
-		if (EmpServices.approvePendingAccounts(acctID) == true)
-			System.out.println("\n****Account successfully approved****\n");
-		else
-			System.out.println("\n****Unable to approve account****\n");
+		System.out.println("****Viewing Pending Accounts****");
+		System.out.print("Please input AccountID of account you would like to approve: ");
+		try {
+			int acctID = scanner.nextInt();
+			if (EmpServices.approvePendingAccounts(acctID) == true)
+				System.out.println("\n****Account successfully approved****\n");
+			else
+				System.out.println("\n****Unable to approve account****\n");
+		}catch (InputMismatchException I) {
+			System.out.println("***Invalid Input***\n");
+			scanner.next();
+		}
 	}
 	// Case B functionality (view a specific customer's account)
 	private void EmployeeViewCustomerAccounts(Scanner scanner) {
-		System.out.println("Please input KeyID of customer bank accounts you would like to view: ");
-		int key = scanner.nextInt();
-		EmpServices.viewCustomerAccounts(key);
+		System.out.println("****Viewing Specific Customer's Accounts****");
+		System.out.print("Please input KeyID of customer bank accounts you would like to view: ");
+		try {
+			int key = scanner.nextInt();
+			EmpServices.viewCustomerAccounts(key);
+		}catch (InputMismatchException I) {
+			System.out.println("***Invalid Input***\n");
+			scanner.next();
+		}
 	}
 	// Menu screen
 	private void EmployeeOptions() {
