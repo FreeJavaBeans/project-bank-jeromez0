@@ -18,7 +18,6 @@ drop table if exists BankAccounts;
 drop table if exists Customers;
 drop table if exists UserAuth;
 
-
 create table UserAuth
 (
 	"KeyID" serial primary key,	
@@ -106,6 +105,13 @@ insert into UserAuth ("Username","Password", "AccountType") values ('customer3',
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (7, 'Marissa', 'Lawson', 'marissa_lawson@gmail.com','104 Pool Avenue', '05/14/1989');
 insert into UserAuth ("Username","Password", "AccountType") values ('customer4', 'password', true);
 insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (8, 'Janet', 'Mason', 'JanetMason@yahoo.com','104 Awesome Drive','02/17/1995');
+
+--Test Account
+insert into UserAuth ("KeyID", "Username","Password", "AccountType") values (100, 'testuser', 'password', true);
+insert into Customers ("KeyID", "FirstName", "LastName", "Email", "Address","DateCreated") values (100, 'Test', 'User', 'Test@User.com','104 Testing Drive','02/17/1995');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (100, 1000000000, 123456789, 100000.00, true, '11/07/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (100, 1000000001, 123456789, 100000.00, true, '11/07/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (100, 1000000002, 123456789, 100000.00, false, '11/07/2020');
 
 --Bank Accounts
 insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 555555555, 123456789, 10000.99, true, '09/15/2020');

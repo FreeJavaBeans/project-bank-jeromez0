@@ -1,18 +1,19 @@
 package bank.app;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import bank.resources.LoginDAO;
 import bank.services.*;
-import bank.util.ConnectionUtility;
+
 
 public class BankAppLauncher {
 	
 	public static void main(String[] args) {
 //		ConnectionUtility cu = ConnectionUtility.getConnectionUtility();
 //		Connection conn = cu.getConnection();
+		
+		Logger logger = LogManager.getLogger("bank.project");
+		logger.debug("This is a test");
 		
 		LoginUserInterface UI = new LoginUserInterface();
 		System.out.println("============================================");

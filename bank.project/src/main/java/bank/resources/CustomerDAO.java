@@ -10,6 +10,7 @@ import java.util.Random;
 
 import bank.models.BankAccount;
 import bank.models.Customer;
+import bank.models.MoneyTransfers;
 import bank.models.User;
 import bank.util.ConnectionUtility;
 
@@ -163,8 +164,7 @@ public class CustomerDAO {
 		if (withdrawalAmount < 0) {
 			System.out.println("\n****Invalid Withdrawal. Can only withdraw a positive amount.****\n");
 			return;
-		}
-		
+		}	
 		String makeWithdrawal = "Update \"BankApplication\".BankAccounts set \"Balance\" = ? where \"KeyID\" = ? and \"AccountID\" = ?";
 		Connection conn = cu.getConnection(); 		
 		try {	
@@ -194,16 +194,27 @@ public class CustomerDAO {
 	// Post Money Transfers
 	public boolean PostMoneyTransfer(int KeyID, int SenderAccountID, int RecipientAccountID, double Amount) {
 		if (Amount < 0) {
-			System.out.println("Cannot post a transfer of less than $0.00.");
+			System.out.println("\n***Cannot post a transfer of less than $0.00.***\n");
 			return false;
 		}	
+		if (Amount > this.GetBal(SenderAccountID)) {
+			System.out.println("\n***Cannot post money transfer; insufficient funds***\n");
+			return false;
+		}
+		if(this.getApproval(SenderAccountID) == false) {
+			System.out.println("\n***Cannot post a money transfer with an unapproved account***\n");
+			return false;
+		}
+		if(this.getApproval(RecipientAccountID) == false) {
+			System.out.println("\n***Cannot post a money transfer to an unapproved account***\n");
+			return false;
+		}
 		Connection conn = cu.getConnection();
 		String postMoneyTransfer = "insert into \"BankApplication\".MoneyTransfers (\"KeyID\", \"AccountID\", \"RecipientAccountID\", \"Amount\", \"Approval\", \"DateCreated\") " +
 				   "values (?,?,?,?,false,?)";
 		Date date = new Date();  
 		Timestamp ts=new Timestamp(date.getTime());  
-		String time = ts.toString();
-		
+		String time = ts.toString();		
 		try {		
 			PreparedStatement prepStatement = conn.prepareStatement(postMoneyTransfer);
 			prepStatement.setInt(1, KeyID);
@@ -236,37 +247,23 @@ public class CustomerDAO {
 			PreparedStatement prepStatement = conn.prepareStatement(viewMoneyTransfersRecd);
 			prepStatement.setInt(1, this.KeyID);
 			ResultSet results = prepStatement.executeQuery();				
+			System.out.println("\n****Viewing Money Transfers Received****\n");
 			while(results.next()) {			 
-				System.out.println("\n****Viewing Money Transfers Received****");
-				System.out.println("Transaction ID: " + results.getInt("TransactionID"));
-				System.out.println("Sender Account ID: " + results.getInt("AccountID"));
-				System.out.println("Receiver Account ID: " + results.getInt("RecipientAccountID"));
-				System.out.println("Amount: " + results.getDouble("Amount"));
-				Timestamp obj = (results.getTimestamp("DateCreated"));
-				String time = obj.toString();
-				System.out.println("Date created: " + time);
-				System.out.println("Approval Status: " + results.getBoolean("Approval"));
-				System.out.println("**************************\n");
+				MoneyTransfers Transfer = new MoneyTransfers();
+				Transfer.printReceievedMoneyTransfers(Transfer.TransferSetter(results, Transfer));
 			}		
 		}catch (SQLException e) {
 			e.printStackTrace();
 			return;
-		}	
-		
+		}		
 		try {
 			PreparedStatement prepStatement = conn.prepareStatement(viewMoneyTransfersPosted);
 			prepStatement.setInt(1, this.KeyID);
 			ResultSet results = prepStatement.executeQuery();				
+			System.out.println("\n****Viewing Money Transfers Posted****");
 			while(results.next()) {			 
-				System.out.println("\n****Viewing Money Transfers Posted****");
-				System.out.println("Sender Account ID: " + results.getInt("AccountID"));
-				System.out.println("Receiver Account ID: " + results.getInt("RecipientAccountID"));
-				System.out.println("Amount: " + results.getDouble("Amount"));
-				Timestamp obj = (results.getTimestamp("DateCreated"));
-				String time = obj.toString();
-				System.out.println("Date created: " + time);
-				System.out.println("Approval Status: " + results.getBoolean("Approval"));
-				System.out.println("**************************\n");
+				MoneyTransfers Transfer = new MoneyTransfers();
+				Transfer.printSentMoneyTransfers(Transfer.TransferSetter(results, Transfer));
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();

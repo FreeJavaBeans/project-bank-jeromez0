@@ -10,16 +10,16 @@ public class TestsLoginDAO {
 	
 	// primary method of the banking application to log a user in
 	LoginDAO LoginTest1 = new LoginDAO("testuser", "password");
-	LoginDAO LoginTest2 = new LoginDAO("customer1", "password");
-	LoginDAO LoginTest3 = new LoginDAO("customer1", "passw0rd");
+	LoginDAO LoginTest2 = new LoginDAO("testuser", "password ");
+	LoginDAO LoginTest3 = new LoginDAO("testuser", " passw0rd");
 	
 	@Test
 	public void test1() {
-		assertEquals(LoginTest1.Login(), false);
+		assertEquals(LoginTest1.Login(), true);
 	}
 	@Test
 	public void test2() {
-		assertEquals(LoginTest2.Login(), true);
+		assertEquals(LoginTest2.Login(), false);
 	}
 	@Test
 	public void test3() {

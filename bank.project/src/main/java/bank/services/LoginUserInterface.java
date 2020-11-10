@@ -3,6 +3,10 @@ package bank.services;
 import bank.util.ScannerUtility;
 import java.util.Date;
 import java.util.Scanner;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Timestamp;
 
 import bank.resources.LoginDAO;
@@ -12,8 +16,10 @@ public class LoginUserInterface {
 	EmployeeUserInterface UIEmployee = new EmployeeUserInterface();
 	Scanner scanner = ScannerUtility.getScanner();
 	
+	Logger logger = LogManager.getLogger("bank.project");
 	// main login menu
 	public void LoginMenu() {
+		logger.debug("This is a test");
 		
 		char option = '\0';
 		do {
