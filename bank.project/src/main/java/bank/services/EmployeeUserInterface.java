@@ -37,13 +37,15 @@ public class EmployeeUserInterface {
 		this.LogOutScreen();
 	}
 	
-	
 	// Case A functionality (view pending accounts that require approval)
 	private void EmployeeViewPendingAccounts(Scanner scanner) {
 		EmpServices.viewPendingAccounts();
 		System.out.println("Please input AccountID of account you would like to approve: ");
 		int acctID = scanner.nextInt();
-		EmpServices.approvePendingAccounts(acctID);
+		if (EmpServices.approvePendingAccounts(acctID) == true)
+			System.out.println("\n****Account successfully approved****\n");
+		else
+			System.out.println("\n****Unable to approve account****\n");
 	}
 	// Case B functionality (view a specific customer's account)
 	private void EmployeeViewCustomerAccounts(Scanner scanner) {

@@ -27,7 +27,7 @@ public class ConnectionUtility {
 			this.conn = DriverManager.getConnection(url, username, password);
 			if (this.conn != null && !conn.isClosed()) {
 				System.out.println("\nConnected to application");
-				System.out.println("URL: " + url);
+//				System.out.println("URL: " + url);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();

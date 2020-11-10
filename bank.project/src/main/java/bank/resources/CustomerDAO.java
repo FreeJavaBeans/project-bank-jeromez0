@@ -274,8 +274,7 @@ public class CustomerDAO {
 		}	
 	}
 	// Accept Money Transfers
-	public boolean AcceptMoneyTransfer(int transactID) {
-		
+	public boolean AcceptMoneyTransfer(int transactID) {	
 		int Recipient, Sender;
 		double Amount;
 		Connection conn = cu.getConnection();

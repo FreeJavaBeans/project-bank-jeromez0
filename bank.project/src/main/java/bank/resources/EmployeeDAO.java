@@ -41,13 +41,17 @@ public class EmployeeDAO implements EmployeeRepository{
 			PreparedStatement prepStatement = conn.prepareStatement(sqlUpdate);
 			prepStatement.setInt(1,  AccountID);
 			prepStatement.execute();
-			System.out.println("****Account updated successfully****\n");
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Invalid Authorization or Account ID");
 			return false;
-		}			
-		return true;
+		}
+		if (this.getApproval(AccountID) == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	// view customer bank accounts
 	public void viewCustomerAccounts(int KeyID) {
@@ -69,6 +73,26 @@ public class EmployeeDAO implements EmployeeRepository{
 	
 	public void viewTransactions() {
 		
+	}
+	
+	private boolean getApproval(int AccountNum) {
+		Connection conn = cu.getConnection();
+		String SQLgetApproval = "select \"Approval\" from \"BankApplication\".BankAccounts where \"AccountID\" = ?";
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(SQLgetApproval);
+			prepStatement.setInt(1,  AccountNum);
+			ResultSet results = prepStatement.executeQuery();
+			while (results.next()) {
+				boolean bool = results.getBoolean("Approval");
+				if (bool == true)
+						return true;
+				if (bool == false)
+						return false;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }
