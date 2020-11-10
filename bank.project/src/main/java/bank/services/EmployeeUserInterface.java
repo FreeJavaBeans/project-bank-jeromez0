@@ -16,7 +16,7 @@ public class EmployeeUserInterface {
 		char option = '\0';
 		do {
 			this.EmployeeOptions();
-			System.out.println("Enter an option: ");
+			System.out.print("Enter an option: ");
 			option = scanner.next().charAt(0);				
 			switch(option) {
 				case 'A':
@@ -26,8 +26,7 @@ public class EmployeeUserInterface {
 					this.EmployeeViewCustomerAccounts(scanner);
 					break;
 				case 'C':
-					EmpServices.viewTransactions();
-					System.out.println("Under construction");
+					this.EmployeeViewTransactions(scanner);
 					break;
 				case 'Q':
 					break;
@@ -66,6 +65,11 @@ public class EmployeeUserInterface {
 			System.out.println("***Invalid Input***\n");
 			scanner.next();
 		}
+	}
+	// Case C functionality (view all previous transactions)
+	private void EmployeeViewTransactions(Scanner scanner) {
+		System.out.println("****Viewing Transactions****\n");
+		EmpServices.viewTransactions();
 	}
 	// Menu screen
 	private void EmployeeOptions() {

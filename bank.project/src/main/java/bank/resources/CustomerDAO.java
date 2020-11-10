@@ -11,6 +11,7 @@ import java.util.Random;
 import bank.models.BankAccount;
 import bank.models.Customer;
 import bank.models.MoneyTransfers;
+import bank.models.Transactions;
 import bank.models.User;
 import bank.util.ConnectionUtility;
 
@@ -130,6 +131,8 @@ public class CustomerDAO {
 		double newBalance = currentBalance + depositAmount;
 		Connection conn = cu.getConnection(); 	
 		String SQLmakeDeposit = "Update \"BankApplication\".BankAccounts set \"Balance\" = ? where \"KeyID\" = ? and \"AccountID\" = ?";
+		Transactions Transaction = new Transactions();
+		Transaction.TransactionSetter(this.KeyID, "Deposit", AccountNum, depositAmount, Transaction);
 		try {	
 			PreparedStatement prepStatement = conn.prepareStatement(SQLmakeDeposit);
 			prepStatement.setDouble(1, newBalance);
@@ -166,19 +169,22 @@ public class CustomerDAO {
 			return;
 		}	
 		String makeWithdrawal = "Update \"BankApplication\".BankAccounts set \"Balance\" = ? where \"KeyID\" = ? and \"AccountID\" = ?";
-		Connection conn = cu.getConnection(); 		
+		Connection conn = cu.getConnection(); 	
+		Transactions Transaction = new Transactions();
+		Transaction.TransactionSetter(this.KeyID, "Withdrawal", AccountNum, withdrawalAmount, Transaction);
 		try {	
 			PreparedStatement prepStatement = conn.prepareStatement(makeWithdrawal);
 			prepStatement.setDouble(1, newBalance);
 			prepStatement.setInt(2, this.KeyID);
 			prepStatement.setInt(3, AccountNum);	
 			prepStatement.execute();		
+			this.insertTransaction(Transaction);
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Invalid Authorization or Account ID");
 			return;
 		}
-		System.out.println("****Withdrawal Information****");
+		System.out.println("\n****Withdrawal Information****");
 		System.out.println("Account ID: " + AccountNum);
 		System.out.println("Previous Balance: " + currentBalance);
 		System.out.println("New Balance: " + newBalance);
@@ -189,6 +195,7 @@ public class CustomerDAO {
 	// Show customer details
 	public void ShowCustomerDetails() {
 		CurrentCustomer.showCustomerDetails(CurrentCustomer, CurrentUser);
+		return;
 	}
 
 	// Post Money Transfers
@@ -215,6 +222,9 @@ public class CustomerDAO {
 		Date date = new Date();  
 		Timestamp ts=new Timestamp(date.getTime());  
 		String time = ts.toString();		
+		Transactions Transaction = new Transactions();
+		Transaction.TransactionSetterMoneyTransfer(KeyID, SenderAccountID, RecipientAccountID,Amount,Transaction);
+		this.insertTransaction(Transaction);
 		try {		
 			PreparedStatement prepStatement = conn.prepareStatement(postMoneyTransfer);
 			prepStatement.setInt(1, KeyID);
@@ -375,4 +385,27 @@ public class CustomerDAO {
 		}
 		return false;
 	}
+	private void insertTransaction(Transactions Transaction) {
+		Connection conn = cu.getConnection();
+		String SQLinsertTransaction = "insert into \"BankApplication\".Transactions (\"KeyID\",\"Type\", \"AccountID\", \"RecipientAccountID\", \"Amount\",\"DateCreated\") " +
+				   "values (?,?,?,?,?,?)";
+		try {		
+			PreparedStatement prepStatement = conn.prepareStatement(SQLinsertTransaction);
+			prepStatement.setInt(1, Transaction.getKeyID());
+			prepStatement.setString(2, Transaction.getType());
+			prepStatement.setInt(3, Transaction.getAccountID());
+			prepStatement.setDouble(4, Transaction.getRecipientAccountID());
+			prepStatement.setDouble(5, Transaction.getAmount());
+			Date date = new Date();  
+			Timestamp ts=new Timestamp(date.getTime());  
+			prepStatement.setTimestamp(6,  ts);
+			prepStatement.execute();			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error: Failed to enter transaction.");
+		}
+		
+	}
+	
+	
 }

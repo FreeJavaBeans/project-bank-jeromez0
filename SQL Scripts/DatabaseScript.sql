@@ -12,6 +12,7 @@
 
 set schema 'BankApplication';
 
+drop table if exists Transactions;
 drop table if exists Employees;
 drop table if exists MoneyTransfers;
 drop table if exists BankAccounts;
@@ -78,6 +79,23 @@ create table MoneyTransfers
 		references BankAccounts ("AccountID")
 );
 
+create table Transactions
+(
+	"KeyID" int not null,
+	"TransactionID" serial primary key,
+	"Type" varchar(40) not null,
+	"AccountID" int not null,
+	"RecipientAccountID" int,
+	"Amount" numeric(10,2) not null,
+	"DateCreated" timestamp not null,
+	foreign key ("KeyID")
+		references Customers("KeyID"),
+	foreign key("AccountID")
+		references BankAccounts("AccountID")
+
+);
+
+
 create unique index Unique_Emails on Customers("Email");
 create unique index Unique_Account_ID on BankAccounts("AccountID");
 create unique index Unique_Usernames on UserAuth("Username");
@@ -134,6 +152,7 @@ select * from Employees;
 select * from Customers;
 select * from BankAccounts;
 select * from MoneyTransfers;
+select * from Transactions;
 
 
 	

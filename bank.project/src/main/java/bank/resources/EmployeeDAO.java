@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import bank.models.BankAccount;
+import bank.models.Transactions;
 import bank.repositories.EmployeeRepository;
 import bank.util.ConnectionUtility;
 
@@ -72,7 +73,18 @@ public class EmployeeDAO implements EmployeeRepository{
 	}
 	
 	public void viewTransactions() {
-		
+		Connection conn = cu.getConnection();
+		String getAllTransactions = "select * from \"BankApplication\".Transactions";
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(getAllTransactions);
+			ResultSet results = prepStatement.executeQuery();
+			Transactions Transaction = new Transactions();
+			while (results.next()) {
+				Transaction.printTransaction(results);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private boolean getApproval(int AccountNum) {
