@@ -60,7 +60,10 @@ public class EmployeeUserInterface {
 		System.out.print("Please input KeyID of customer bank accounts you would like to view: ");
 		try {
 			int key = scanner.nextInt();
-			EmpServices.viewCustomerAccounts(key);
+			boolean bool= EmpServices.viewCustomerAccounts(key);
+			if (bool == false) {
+				System.out.println("\n***Account does not exist***\n");
+			}
 		}catch (InputMismatchException I) {
 			System.out.println("***Invalid Input***\n");
 			scanner.next();

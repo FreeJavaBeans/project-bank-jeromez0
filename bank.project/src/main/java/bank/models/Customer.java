@@ -38,6 +38,7 @@ public class Customer extends User{
 	
 	public void showCustomerDetails(Customer CurrentCustomer, User CurrentUser) {
 		System.out.println("****Customer Details****\n");
+		System.out.println("Customer ID: " + CurrentUser.getKeyID());
 		System.out.println("Username: "  + CurrentUser.getUsername());
 		System.out.println("First name: " + CurrentCustomer.getFirstName());
 		System.out.println("Last name: " + CurrentCustomer.getLastName());

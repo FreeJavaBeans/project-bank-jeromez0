@@ -69,6 +69,7 @@ public class LoginUserInterface {
 		}					
 		// If Login Successful and account type is employee then return employee menu
 		else if ( (UserAuth == true) && (Login.getCurrentUser().isAccountType() == false) ) {
+			System.out.println("****Login successful****\n" );
 			UIEmployee.EmployeeMenu();
 		}
 		else 

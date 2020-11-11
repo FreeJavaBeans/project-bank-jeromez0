@@ -143,8 +143,8 @@ insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approva
 insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (8, 888800000, 123456789, 40000.99, false, '11/07/2020');
 
 --Money Transfers
-insert into MoneyTransfers("KeyID", "AccountID", "RecipientAccountID", "Amount", "Approval", "DateCreated") values (5, 555555555, 666666666, 1000.23, false, '11/08/2020');
-insert into MoneyTransfers("KeyID", "AccountID", "RecipientAccountID", "Amount", "Approval", "DateCreated") values (5, 777777777, 555555555, 1000.23, false, '11/08/2020');
+insert into MoneyTransfers("KeyID", "AccountID", "RecipientAccountID", "Amount", "Approval", "DateCreated") values (100, 1000000000,1000000001, 1000.23, false, '11/08/2020');
+insert into MoneyTransfers("KeyID", "AccountID", "RecipientAccountID", "Amount", "Approval", "DateCreated") values (100, 1000000001,1000000002, 1000.23, false, '11/08/2020');
 
 -- testing
 select * from UserAuth;

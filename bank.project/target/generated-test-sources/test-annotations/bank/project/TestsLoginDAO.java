@@ -52,18 +52,16 @@ public class TestsLoginDAO {
 	public void test4() {
 		Connection conn = cu.getConnection();
 		String SQLDelete1 = "Delete from \"BankApplication\".Customers where \"Address\" = ?";
+		String SQLDelete = "Delete from \"BankApplication\".UserAuth where \"Username\" = ?";
 		try {
 			PreparedStatement prepareStatement = conn.prepareStatement(SQLDelete1);
 			prepareStatement.setString(1,  "200 test street");
 			prepareStatement.execute();
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-		String SQLDelete = "Delete from \"BankApplication\".UserAuth where \"Username\" = ?";
-		try {
-			PreparedStatement prepareStatement = conn.prepareStatement(SQLDelete);
-			prepareStatement.setString(1, "testuser100");
-			prepareStatement.execute();
+			
+			PreparedStatement prepareStatement1 = conn.prepareStatement(SQLDelete);
+			prepareStatement1.setString(1, "testuser100");
+			prepareStatement1.execute();
+			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}

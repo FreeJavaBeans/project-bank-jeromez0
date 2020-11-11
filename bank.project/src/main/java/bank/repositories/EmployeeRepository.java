@@ -6,7 +6,7 @@ public interface EmployeeRepository {
 	
 	public boolean approvePendingAccounts(int AccountID);
 	
-	public void viewCustomerAccounts(int KeyID);
+	public boolean viewCustomerAccounts(int KeyID);
 	
 	public void viewTransactions();
 	
