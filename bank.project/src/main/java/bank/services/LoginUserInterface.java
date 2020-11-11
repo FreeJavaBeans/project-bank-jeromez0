@@ -12,14 +12,11 @@ import java.sql.Timestamp;
 import bank.resources.LoginDAO;
 
 public class LoginUserInterface {
-	// UserInterface for the customer as well as the employee are created
-	EmployeeUserInterface UIEmployee = new EmployeeUserInterface();
+	private static final Logger LOG = LogManager.getLogger(LoginUserInterface.class);
 	Scanner scanner = ScannerUtility.getScanner();
 	
-	Logger logger = LogManager.getLogger("bank.project");
 	// main login menu
 	public void LoginMenu() {
-		logger.debug("This is a test");
 		
 		char option = '\0';
 		do {
@@ -63,13 +60,16 @@ public class LoginUserInterface {
 		boolean UserAuth = Login.Login();					
 		// If Login Successful and account type is customer then return customer menu
 		if ( (UserAuth == true) && (Login.getCurrentUser().isAccountType() == true)) {
+			LOG.info("Customer username: " + username + " has logged in.");
 			System.out.println("****Login successful****\n" );
 			CustomerUserInterface UICustomer = new CustomerUserInterface(Login.getCurrentUser().getKeyID(), Login.getCurrentUser());
 			UICustomer.CustomerMenu();
 		}					
 		// If Login Successful and account type is employee then return employee menu
 		else if ( (UserAuth == true) && (Login.getCurrentUser().isAccountType() == false) ) {
+			LOG.info("Employee username: " + username + " has logged in.");
 			System.out.println("****Login successful****\n" );
+			EmployeeUserInterface UIEmployee = new EmployeeUserInterface();
 			UIEmployee.EmployeeMenu();
 		}
 		else 

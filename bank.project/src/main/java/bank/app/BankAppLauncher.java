@@ -8,13 +8,11 @@ import bank.services.*;
 
 public class BankAppLauncher {
 	
+	private static final Logger LOG = LogManager.getLogger(BankAppLauncher.class);
+	
 	public static void main(String[] args) {
-//		ConnectionUtility cu = ConnectionUtility.getConnectionUtility();
-//		Connection conn = cu.getConnection();
-		
-		Logger logger = LogManager.getLogger("bank.project");
-		logger.debug("This is a test");
-		
+	
+		LOG.info("User has accessed banking application");
 		LoginUserInterface UI = new LoginUserInterface();
 		System.out.println("============================================");
 		System.out.println("Hello and welcome to the banking application");		
