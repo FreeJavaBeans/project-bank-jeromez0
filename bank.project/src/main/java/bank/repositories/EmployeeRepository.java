@@ -2,7 +2,6 @@ package bank.repositories;
 
 public interface EmployeeRepository {
 	
-	
 	public void viewPendingAccounts();
 	
 	public boolean approvePendingAccounts(int AccountID);

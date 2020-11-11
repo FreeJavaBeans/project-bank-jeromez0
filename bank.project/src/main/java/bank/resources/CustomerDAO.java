@@ -40,7 +40,6 @@ public class CustomerDAO {
 			e.printStackTrace();
 		}	
 	}
-	
 	// Apply for Bank Account method
 	public boolean ApplyBankAccount(double startingBalance) {
 		if (startingBalance < 0) {
@@ -79,7 +78,6 @@ public class CustomerDAO {
 		System.out.println("****New Account Successfully Created****\n");
 		return true;
 	}
-	
 	// Viewing a specific account balance
 	public void ViewSpecificBalance(int AccountNum) {
 		Connection conn = cu.getConnection();
@@ -151,7 +149,6 @@ public class CustomerDAO {
 		System.out.println("**************************\n");
 		return;
 	}
-	
 	// Making a withdrawal
 	public void MakeWithdrawal(int AccountNum, double withdrawalAmount) {
 		double currentBalance = this.GetBal(AccountNum);
@@ -191,13 +188,11 @@ public class CustomerDAO {
 		System.out.println("**************************\n");
 		return;
 	}
-	
 	// Show customer details
 	public void ShowCustomerDetails() {
 		CurrentCustomer.showCustomerDetails(CurrentCustomer, CurrentUser);
 		return;
 	}
-
 	// Post Money Transfers
 	public boolean PostMoneyTransfer(int KeyID, int SenderAccountID, int RecipientAccountID, double Amount) {
 		if (Amount < 0) {
@@ -305,12 +300,13 @@ public class CustomerDAO {
 				System.out.println("Previous balance: " + currBal);
 				System.out.println("New balance: " + this.GetBal(Recipient));
 				System.out.println("****************************\n");
+				return true;
 			}	
 		}catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-		return true;
+		return false;
 	}
 	// this method completes transactions by updating balances
 	private boolean MakeTrans(double Amount, int AccountID) {
@@ -385,6 +381,7 @@ public class CustomerDAO {
 		}
 		return false;
 	}
+	// this method inserts transactions into the database
 	private void insertTransaction(Transactions Transaction) {
 		Connection conn = cu.getConnection();
 		String SQLinsertTransaction = "insert into \"BankApplication\".Transactions (\"KeyID\",\"Type\", \"AccountID\", \"RecipientAccountID\", \"Amount\",\"DateCreated\") " +
@@ -403,9 +400,6 @@ public class CustomerDAO {
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Error: Failed to enter transaction.");
-		}
-		
+		}		
 	}
-	
-	
 }

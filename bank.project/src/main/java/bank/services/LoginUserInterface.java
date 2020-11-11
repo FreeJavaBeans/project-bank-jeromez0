@@ -86,7 +86,7 @@ public class LoginUserInterface {
 		LoginDAO CreateAccount = new LoginDAO(username1,password1);
 		
 		// if the user account is created successfully then add customer details
-		if (CreateAccount.NewUserAccount(username1, password1) == true) { 
+		if (CreateAccount.NewUserAccount() == true) { 
 			System.out.println("\n*****Creating Customer Account*****\n");
 			System.out.println("All fields required");
 			System.out.print("Enter your first name: ");

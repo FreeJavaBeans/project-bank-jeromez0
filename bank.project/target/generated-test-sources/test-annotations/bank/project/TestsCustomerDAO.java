@@ -11,18 +11,17 @@ import bank.resources.EmployeeDAO;
 public class TestsCustomerDAO {
 	
 	User currentUser = new User(100,"testuser","password",true);
-	
 	CustomerDAO Customer = new CustomerDAO(100, currentUser);
-	
-	/*
-	 * Testing apply for bank account functionality
-	 */
+		
+	// Testing apply for bank account functionality
+	// function prototype: 
+	// public boolean ApplyBankAccount(double startingBalance);
 	
 	// Test case 1: test user should be able to apply for a bank account with a positive initial deposit
 	@Test
 	public void test1() {
 		assertEquals(Customer.ApplyBankAccount(50000),true);
-	}
+	}	
 	
 	// Test case 2: test user should not be able to apply for a bank account with a negative initial deposit
 	@Test
@@ -36,10 +35,9 @@ public class TestsCustomerDAO {
 		assertEquals(Customer.ApplyBankAccount(0000.000),true);
 	}
 	
-	/*
-	 * public boolean PostMoneyTransfer(int KeyID, int SenderAccountID, int RecipientAccountID, double Amount)
-	 * testing the money transfer functionality
-	 */
+	// testing post the money transfer functionality
+	// function prototype:
+	// public boolean PostMoneyTransfer(int KeyID, int SenderAccountID, int RecipientAccountID, double Amount)
 	
 	// Test case 4: test user should be able to transfer $1000 
 	@Test
@@ -58,5 +56,28 @@ public class TestsCustomerDAO {
 	public void test6() {
 		assertEquals(Customer.PostMoneyTransfer(100, 1000000000, 1000000001,100000000.25),false);
 	}
+	
+	// testing the accept money transfer functionality
+	// function prototype:
+	// public boolean AcceptMoneyTransfer(int transactID);
+	
+	// Test case 7: test user should be able to accept the money transfer between accounts
+	@Test
+	public void test7() {
+		assertEquals(Customer.AcceptMoneyTransfer(3),true);
+	}
+	
+	// Test case 8: test user should not be able to accept money transfer from a nonexistent transaction ID
+	@Test
+	public void test8() {
+		assertEquals(Customer.AcceptMoneyTransfer(10000),false);
+	}
+	
+	// Test case 9: test user should not be able to accept money transfer from a negative transaction ID
+	@Test
+	public void test9() {
+		assertEquals(Customer.AcceptMoneyTransfer(-30),false);
+	}
+	
 	
 }

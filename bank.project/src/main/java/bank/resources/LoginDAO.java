@@ -48,10 +48,8 @@ public class LoginDAO {
 		}	
 	}	
 	// method for creating a new user account
-	public boolean NewUserAccount(String Username, String Password) {
-		// get a connection
+	public boolean NewUserAccount() {
 		Connection conn = cu.getConnection();
-		// tries the SQL query
 		String SQLCreateUser = "INSERT INTO \"BankApplication\".UserAuth (\"Username\", \"Password\", \"AccountType\") VALUES (?,?,true);";
 		try {		
 			PreparedStatement prepStatement = conn.prepareStatement(SQLCreateUser);
@@ -59,14 +57,12 @@ public class LoginDAO {
 			prepStatement.setString(2, this.Password);
 			prepStatement.execute();
 		}catch (SQLException e) {
-//			e.printStackTrace();
 			return false;
 		}
 		return true;
 	}
 	// method for creating a new customer account that is linked by KeyID to the user account
 	public boolean NewCustomerAccount(String firstname, String lastname, String email, String address, Timestamp ts) {
-		// get a connection
 		Connection conn = cu.getConnection();
 		String SQLCreateAccount = "INSERT INTO \"BankApplication\".Customers (\"KeyID\",\"FirstName\", \"LastName\", \"Email\", \"Address\",\"DateCreated\") "+
 				  "values (?,?,?,?,?,?)";
@@ -80,14 +76,12 @@ public class LoginDAO {
 			prepStatement.setTimestamp(6, ts);
 			prepStatement.execute();
 		}catch (SQLException e) {
-//			e.printStackTrace();
 			return false;
 		}
 		return true;
 	}
 	// method to get the correct KeyID for the new customer account
 	private int getKey() {
-		// get a connection
 		Connection conn = cu.getConnection();
 		String SQLgetKeyID = "select \"KeyID\" from \"BankApplication\".UserAuth where \"Username\" = ?;";
 		try {			
