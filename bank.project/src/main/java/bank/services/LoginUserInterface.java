@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import bank.resources.LoginDAO;
 
 public class LoginUserInterface {
-	private static final Logger LOG = LogManager.getLogger(LoginUserInterface.class);
+	public static Logger LOG = LogManager.getLogger("bankproject");
 	Scanner scanner = ScannerUtility.getScanner();
 	
 	// main login menu

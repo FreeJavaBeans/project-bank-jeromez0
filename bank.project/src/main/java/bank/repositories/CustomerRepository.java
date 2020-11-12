@@ -4,7 +4,7 @@ public interface CustomerRepository {
 
 	public boolean ApplyBankAccount(double startingBalance);
 	
-	public void ViewSpecificBalance(int AccountNum);
+	public boolean ViewSpecificBalance(int AccountNum);
 	
 	public void ViewAllBalances(); 
 	
@@ -17,6 +17,5 @@ public interface CustomerRepository {
 	public void ViewMoneyTransfers();
 	
 	public boolean AcceptMoneyTransfer(int transactID);
-	
 	
 }

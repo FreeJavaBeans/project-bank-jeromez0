@@ -8,7 +8,7 @@ import bank.services.*;
 
 public class BankAppLauncher {
 	
-	private static final Logger LOG = LogManager.getLogger(BankAppLauncher.class);
+	public static Logger LOG = LogManager.getLogger("bankproject");
 	
 	public static void main(String[] args) {
 	

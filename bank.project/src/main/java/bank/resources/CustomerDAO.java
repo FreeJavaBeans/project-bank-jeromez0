@@ -79,7 +79,10 @@ public class CustomerDAO {
 		return true;
 	}
 	// Viewing a specific account balance
-	public void ViewSpecificBalance(int AccountNum) {
+	public boolean ViewSpecificBalance(int AccountNum) {
+		if (this.findKeyID(AccountNum) != this.KeyID) {
+			return false;
+		}
 		Connection conn = cu.getConnection();
 		String SQLviewAccountBalance = "select * from \"BankApplication\".BankAccounts where \"KeyID\" = ? and \"AccountID\" = ?";		
 		try {	
@@ -91,11 +94,30 @@ public class CustomerDAO {
 			while(results.next()) {			 
 				BankAccount Account = new BankAccount();
 				Account.printBankAccount(Account.AccountSetter(results, Account));
+				return true;
 			}		
 		}catch (SQLException e) {
 			e.printStackTrace();
-			return;
 		}	
+		return false;
+	}
+	// this method finds the KeyID of an accountID
+	private int findKeyID(int accountID) {
+		Connection conn = cu.getConnection();
+		String SQLquery = "select \"KeyID\" from \"BankApplication\".BankAccounts where \"AccountID\" = ?";
+		int key;
+		try {
+			PreparedStatement prepStatement = conn.prepareStatement(SQLquery);
+			prepStatement.setInt(1,  accountID);
+			ResultSet results = prepStatement.executeQuery();
+			while(results.next()) {
+				key = results.getInt("KeyID");
+				return key;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	// View all account balances
 	public void ViewAllBalances() {
@@ -209,6 +231,9 @@ public class CustomerDAO {
 		}
 		if(this.getApproval(RecipientAccountID) == false) {
 			System.out.println("\n***Cannot post a money transfer to an unapproved account***\n");
+			return false;
+		}
+		if (SenderAccountID == RecipientAccountID) {
 			return false;
 		}
 		Connection conn = cu.getConnection();
@@ -402,4 +427,6 @@ public class CustomerDAO {
 			System.out.println("Error: Failed to enter transaction.");
 		}		
 	}
+
+	
 }

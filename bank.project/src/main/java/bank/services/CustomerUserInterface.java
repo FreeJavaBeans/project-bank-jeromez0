@@ -62,12 +62,12 @@ public class CustomerUserInterface {
 		System.out.println("****Customer Screen****");
 		System.out.println("Press 'A' to Apply for new bank account");
 		System.out.println("Press 'B' to View balances for a specific account");
-		System.out.println("Press 'C' to make a deposit for a specific account");
+		System.out.println("Press 'C' to Make a deposit for a specific account");
 		System.out.println("Press 'D' to Make a withdrawal for a specific account");
-		System.out.println("Press 'E' to post a money transfer to a specific account");
-		System.out.println("Press 'F' to view and/or accept pending money transfers");
-		System.out.println("Press 'G' to view current user details");
-		System.out.println("Press 'H' to view all account balances");
+		System.out.println("Press 'E' to Post a money transfer to a specific account");
+		System.out.println("Press 'F' to View and/or accept pending money transfers");
+		System.out.println("Press 'G' to View current user details");
+		System.out.println("Press 'H' to View all account balances");
 		System.out.println("Press 'Q' to Logout\n");
 	}
 	// Logout Screen
@@ -95,7 +95,9 @@ public class CustomerUserInterface {
 		System.out.print("Please enter the Account ID of the proper account to view the balance: ");
 		try {
 			int AccountNum = scanner.nextInt();
-			this.customerDAO.ViewSpecificBalance(AccountNum);
+			if (this.customerDAO.ViewSpecificBalance(AccountNum) == false) {
+				System.out.println("\n****Unauthorized access****\n");
+			};
 		}catch (InputMismatchException I) {
 			System.out.println("***Invalid Input***\n");
 			scanner.next();
