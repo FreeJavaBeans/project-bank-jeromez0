@@ -69,12 +69,12 @@ public class EmployeeDAO implements EmployeeRepository{
 			while(results.next()) {			 
 				BankAccount Account = new BankAccount();
 				Account.printBankAccount(Account.AccountSetter(results, Account));
-				return true;
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();			
+			e.printStackTrace();
+			return false;
 		}
-		return false;
+		return true;
 	}
 	// this method lets employee view all past transactions
 	public void viewTransactions() {

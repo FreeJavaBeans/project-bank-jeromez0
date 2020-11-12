@@ -158,13 +158,14 @@ public class CustomerDAO {
 			prepStatement.setDouble(1, newBalance);
 			prepStatement.setInt(2, this.KeyID);
 			prepStatement.setInt(3, AccountNum);	
-			prepStatement.execute();		
+			prepStatement.execute();
+			this.insertTransaction(Transaction);
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Invalid Authorization or Account ID");
 			return;
 		}
-		System.out.println("****Deposit Information****");
+		System.out.println("\n****Deposit Information****");
 		System.out.println("Account ID: " + AccountNum);
 		System.out.println("Previous Balance: " + currentBalance);
 		System.out.println("New Balance: " + newBalance);
@@ -290,7 +291,7 @@ public class CustomerDAO {
 			PreparedStatement prepStatement = conn.prepareStatement(viewMoneyTransfersPosted);
 			prepStatement.setInt(1, this.KeyID);
 			ResultSet results = prepStatement.executeQuery();				
-			System.out.println("\n****Viewing Money Transfers Posted****");
+			System.out.println("\n****Viewing Money Transfers Posted****\n");
 			while(results.next()) {			 
 				MoneyTransfers Transfer = new MoneyTransfers();
 				Transfer.printSentMoneyTransfers(Transfer.TransferSetter(results, Transfer));
