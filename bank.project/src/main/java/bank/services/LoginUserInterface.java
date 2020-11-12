@@ -49,13 +49,12 @@ public class LoginUserInterface {
 		System.out.print("Enter a username: ");		
 		String username = scanner.next().toLowerCase();
 		System.out.print("Enter a password: ");
-		String password = scanner.next();								
+		String password = scanner.next();				
 		// Creating new user session
 		LoginDAO Login = new LoginDAO(username,password);
 		System.out.println("\n*****Authenticating*****");
 		System.out.println("........................");
 		System.out.println("........................");
-	 
 		// Testing for User Authentication
 		boolean UserAuth = Login.Login();					
 		// If Login Successful and account type is customer then return customer menu
@@ -81,8 +80,16 @@ public class LoginUserInterface {
 		System.out.println("\n*****Sign Up for an Account*****");
 		System.out.print("Enter a username: ");
 		String username1 = scanner.next().toLowerCase();
+		if (username1.length() > 20 || username1.length() < 6) {
+			System.out.println("\n**Username must be 6-20 characters in length.**\n");
+			return;
+		}
 		System.out.print("Enter a password: ");
 		String password1 = scanner.next();
+		if (password1.length() > 20 || password1.length() < 6) {
+			System.out.println("\n**Password must be 6-20 characters in length.**\n");
+			return;
+		}
 		// creating new user authentication session
 		LoginDAO CreateAccount = new LoginDAO(username1,password1);
 		
