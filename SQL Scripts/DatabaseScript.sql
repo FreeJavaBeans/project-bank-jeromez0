@@ -132,15 +132,15 @@ insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approva
 insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (100, 1000000002, 123456789, 100000.00, false, '11/07/2020');
 
 --Bank Accounts
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 555555555, 123456789, 10000.99, true, '09/15/2020');
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (6, 666666666, 123456789, 20000.99, true, '11/07/2020');
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (7, 777777777, 123456789, 30000.99, true, '11/07/2020');
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (8, 888888888, 123456789, 40000.99, true, '11/07/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 555555555, 123456789, 10000.00, true, '09/15/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (6, 666666666, 123456789, 20000.00, true, '11/07/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (7, 777777777, 123456789, 30000.00, true, '11/07/2020');
+insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (8, 888888888, 123456789, 40000.00, true, '11/07/2020');
 
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 555500000, 123456789, 40000.99, false, '11/07/2020');
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (6, 666600000, 123456789, 40000.99, false, '11/07/2020');
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (7, 777700000, 123456789, 40000.99, false, '11/07/2020');
-insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (8, 888800000, 123456789, 40000.99, false, '11/07/2020');
+--insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (5, 555500000, 123456789, 40000.00, false, '11/07/2020');
+--insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (6, 666600000, 123456789, 40000.00, false, '11/07/2020');
+--insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (7, 777700000, 123456789, 40000.00, false, '11/07/2020');
+--insert into BankAccounts ("KeyID", "AccountID", "RoutingID", "Balance", "Approval", "DateCreated") values (8, 888800000, 123456789, 40000.00, false, '11/07/2020');
 
 --Money Transfers
 insert into MoneyTransfers("KeyID", "AccountID", "RecipientAccountID", "Amount", "Approval", "DateCreated") values (100, 1000000000,1000000001, 1000.23, false, '11/08/2020');

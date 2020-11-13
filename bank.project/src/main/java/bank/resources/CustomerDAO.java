@@ -43,7 +43,7 @@ public class CustomerDAO {
 	// Apply for Bank Account method
 	public boolean ApplyBankAccount(double startingBalance) {
 		if (startingBalance < 0) {
-			System.out.println("Impossible to start with a balance less than 0.");
+			System.out.println("\n***Impossible to start with a balance less than 0.***\n");
 			return false;
 		}
 		// generate a random accounting number
@@ -69,13 +69,13 @@ public class CustomerDAO {
 			System.out.println("Error: Account with AccountID already exists.");
 			return false;
 		}
-		System.out.println("\n**********");
+		System.out.println("\n****New Account Successfully Created****\n");
 		System.out.println("Account Number: " + accountNumber);
 		System.out.println("Routing ID: " + this.routingID);
 		System.out.println("Date Created: " + time);
 		System.out.println("Current Balance: " + startingBalance);
 		System.out.println("Approval Status: pending");
-		System.out.println("****New Account Successfully Created****\n");
+		System.out.println("******************************************\n");
 		return true;
 	}
 	// Viewing a specific account balance
@@ -177,7 +177,7 @@ public class CustomerDAO {
 		double currentBalance = this.GetBal(AccountNum);
 		double newBalance = currentBalance - withdrawalAmount;
 		if (newBalance < 0) {
-			System.out.println("\nInvalid Withdrawal. Completing transaction would leave your bank account with less than $0.00.\n");
+			System.out.println("\n****Invalid Withdrawal. Completing transaction would leave your bank account with less than $0.00.****\n");
 			return;
 		}
 		if (this.getApproval(AccountNum) == false) {
